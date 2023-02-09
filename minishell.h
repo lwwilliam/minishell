@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/09 15:43:00 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:26:36 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,10 @@
 # include <signal.h>
 # include <termios.h>
 # include <fcntl.h>
+
+typedef struct s_minihell
+{
+	char	**env_arr;
+}	t_minihell;
 
 #endif
