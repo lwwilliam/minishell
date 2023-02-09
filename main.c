@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/09 22:19:59 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/09 22:34:37 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,20 @@ int	main(int ac, char **av, char **env)
 	{
 		printf("%s", "Minishell : ");
 		t = readline(0);
-		printf("%s\n", t);
-		if (!ft_strncmp(t, "env", 3))
+		if (!t)
+		{
+			printf("exit");
+			return (1);
+		}
+		else if (!ft_strncmp(t, "env", 3))
 		{
 			x = 0;
 			while (mini.env_arr[x])
 				printf("%s\n", mini.env_arr[x++]);
 		}
-		if (!ft_strncmp(t, "pwd", 3))
+		else if (!ft_strncmp(t, "pwd", 3))
 			printf("%s\n", getcwd(NULL, 1024));
-		if (!ft_strncmp(t, "exit", 4))
+		else if (!ft_strncmp(t, "exit", 4))
 			return (69);
 	}
 }
