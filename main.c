@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/09 22:34:37 by wting            ###   ########.fr       */
+/*   Updated: 2023/02/10 16:41:36 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,29 @@ int	env_init(char **in, t_minihell *mini)
 	return (0);
 }
 
+void	print_env(char **env, t_minihell *mini)
+{
+	int	x;
+
+	env_init(env, mini);
+	x = 0;
+	while (mini->env_arr[x])
+		printf("%s\n", mini->env_arr[x++]);
+}
+
+void	input_handle(t_minihell *mini)
+{
+	char	*t;
+
+	mini->input_arr = malloc(sizeof(char) * 10000);
+	t = readline("\033[0;32mMinishell > \033[0m");
+	add_history(t);
+	if (!t)
+	{
+		exit(1);
+	}
+	mini->input_arr = ft_split(t, ' ');
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -37,25 +60,18 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	env_init(env, &mini);
 	while (1)
 	{
-		printf("%s", "Minishell : ");
-		t = readline(0);
-		if (!t)
-		{
-			printf("exit");
-			return (1);
-		}
-		else if (!ft_strncmp(t, "env", 3))
-		{
-			x = 0;
-			while (mini.env_arr[x])
-				printf("%s\n", mini.env_arr[x++]);
-		}
-		else if (!ft_strncmp(t, "pwd", 3))
+		input_handle(&mini);
+		if (!ft_strncmp(mini.input_arr[0], "env", 3))
+			print_env(env, &mini);
+		else if (!ft_strncmp(mini.input_arr[0], "pwd", 3))
 			printf("%s\n", getcwd(NULL, 1024));
-		else if (!ft_strncmp(t, "exit", 4))
+		else if (!ft_strncmp(mini.input_arr[0], "exit", 4))
 			return (69);
+		// else if (!ft_strncmp(t, "cd", 2))
+		// 	change_dir(&mini);
 	}
 }
+
+
