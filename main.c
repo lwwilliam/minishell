@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/10 16:41:36 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:01:30 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	input_handle(t_minihell *mini)
 {
 	char	*t;
 
-	mini->input_arr = malloc(sizeof(char) * 10000);
 	t = readline("\033[0;32mMinishell > \033[0m");
 	add_history(t);
 	if (!t)
