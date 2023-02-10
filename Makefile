@@ -1,6 +1,6 @@
 NAME = minishell.a
 
-SRC = main.c
+SRC = main.c hell_lexer.c hell_utils.c
 
 CC = gcc
 
