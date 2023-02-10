@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/10 16:30:14 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:40:02 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,10 @@ void	input_handle(t_minihell *mini);
 //env handle
 int		env_init(char **in, t_minihell *mini);
 void	print_env(char **env, t_minihell *mini);
+
+//directory
+char	*home_dir(char *en);
+void	change_dir(t_minihell *mini);
+void	list_dir(t_minihell *mini);
 
 #endif

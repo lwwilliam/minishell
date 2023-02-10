@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/10 17:01:30 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:16:41 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	input_handle(t_minihell *mini)
 {
 	char	*t;
 
-	t = readline("\033[0;32mMinishell > \033[0m");
+	t = readline("\033[0;32mMinishell$ \033[0m");
 	add_history(t);
 	if (!t)
 	{
@@ -53,24 +53,22 @@ void	input_handle(t_minihell *mini)
 int	main(int ac, char **av, char **env)
 {
 	t_minihell	mini;
-	char		*t;
-	char		*pwd;
-	int			x;
 
 	(void)ac;
 	(void)av;
 	while (1)
 	{
 		input_handle(&mini);
+		env_init(env, &mini);
 		if (!ft_strncmp(mini.input_arr[0], "env", 3))
 			print_env(env, &mini);
 		else if (!ft_strncmp(mini.input_arr[0], "pwd", 3))
 			printf("%s\n", getcwd(NULL, 1024));
+		else if (!ft_strncmp(mini.input_arr[0], "ls", 2))
+			list_dir(&mini);
+		else if (!ft_strncmp(mini.input_arr[0], "cd", 2))
+			change_dir(&mini);
 		else if (!ft_strncmp(mini.input_arr[0], "exit", 4))
 			return (69);
-		// else if (!ft_strncmp(t, "cd", 2))
-		// 	change_dir(&mini);
 	}
 }
-
-
