@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 20:38:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/10 21:17:06 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:39:37 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	list_dir(t_minihell *mini)
 	}
 }
 
-char	*home_dir(char *en)
+void	what_dir(char *en, int print)
 {
 	int		x;
 	int		y;
@@ -42,25 +42,28 @@ char	*home_dir(char *en)
 	while (en[x])
 		tmp[y++] = en[x++];
 	tmp[y] = '\0';
-	return (tmp);
+	chdir(tmp);
+	if (print == 1)
+		printf("%s\n", tmp);
+	free(tmp);
 }
 
 void	change_dir(t_minihell *mini)
 {
 	int		x;
-	int		y;
 
 	x = 0;
-	y = 0;
-	if (!mini->input_arr[1] || !ft_strncmp(mini->input_arr[1], "~", 1))
+	if (!mini->input_arr[1] || !ft_strncmp(mini->input_arr[1], "~", 1)
+		|| !ft_strncmp(mini->input_arr[1], "-", 1))
 	{
 		while (mini->env_arr[x])
 		{
-			if (!ft_strncmp(mini->env_arr[x], "HOME", 4))
-			{
-				chdir(home_dir(mini->env_arr[x]));
-				free(home_dir(mini->env_arr[x]));
-			}
+			if (!ft_strncmp(mini->env_arr[x], "HOME", 4) && (!mini->input_arr[1]
+				|| !ft_strncmp(mini->input_arr[1], "~", 1)))
+				what_dir(mini->env_arr[x], 0);
+			if (!ft_strncmp(mini->env_arr[x], "OLDPWD", 4) &&
+				!ft_strncmp(mini->input_arr[1], "-", 1))
+				what_dir(mini->env_arr[x], 1);
 			x++;
 		}
 	}

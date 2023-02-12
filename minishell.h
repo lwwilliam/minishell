@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/10 20:40:02 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:38:48 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		env_init(char **in, t_minihell *mini);
 void	print_env(char **env, t_minihell *mini);
 
 //directory
-char	*home_dir(char *en);
+void	what_dir(char *en, int print);
 void	change_dir(t_minihell *mini);
 void	list_dir(t_minihell *mini);
 

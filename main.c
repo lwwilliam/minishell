@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/10 21:16:41 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:48:23 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,31 @@ void	input_handle(t_minihell *mini)
 	mini->input_arr = ft_split(t, ' ');
 }
 
+void sigint_handler(int sig)
+{
+	(void)sig;
+	printf("\b\b");
+	printf("int called\n");
+	return ;
+}
+
+void sigquit_handler(int sig)
+{
+	(void)sig;
+	printf("\b\b");
+	printf("quit called");
+	return ;
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_minihell	mini;
 
 	(void)ac;
 	(void)av;
-	while (1)
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
+	while (1)	
 	{
 		input_handle(&mini);
 		env_init(env, &mini);
@@ -68,7 +86,7 @@ int	main(int ac, char **av, char **env)
 			list_dir(&mini);
 		else if (!ft_strncmp(mini.input_arr[0], "cd", 2))
 			change_dir(&mini);
-		else if (!ft_strncmp(mini.input_arr[0], "exit", 4))
+		if (!ft_strncmp(mini.input_arr[0], "exit", 4))
 			return (69);
 	}
 }
