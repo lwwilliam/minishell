@@ -1,10 +1,10 @@
 NAME = minishell.a
 
-SRC = main.c directory.c
+SRC = main.c directory.c hell_lexer.c
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 

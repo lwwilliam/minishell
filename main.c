@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/12 22:48:23 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:19:33 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	input_handle(t_minihell *mini)
 	{
 		exit(1);
 	}
-	mini->input_arr = ft_split(t, ' ');
+	mini->input_arr = lexer(t);
 }
 
-void sigint_handler(int sig)
+void	sigint_handler(int sig)
 {
 	(void)sig;
 	printf("\b\b");
@@ -58,13 +58,19 @@ void sigint_handler(int sig)
 	return ;
 }
 
-void sigquit_handler(int sig)
+void	sigquit_handler(int sig)
 {
 	(void)sig;
 	printf("\b\b");
 	printf("quit called");
 	return ;
 }
+
+// void	tmp_env(t_minihell *mini)
+// {
+// 	char *arg[] = {"ls", NULL};
+// 	execve("/bin/ls", arg, NULL);
+// }
 
 int	main(int ac, char **av, char **env)
 {
@@ -74,10 +80,13 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
-	while (1)	
+	while (1)
 	{
 		input_handle(&mini);
 		env_init(env, &mini);
+		printf("%s\n", mini.input_arr[0]);
+		printf("%s\n", mini.input_arr[1]);
+		// printf("%s\n", mini.input_arr[0]);
 		if (!ft_strncmp(mini.input_arr[0], "env", 3))
 			print_env(env, &mini);
 		else if (!ft_strncmp(mini.input_arr[0], "pwd", 3))

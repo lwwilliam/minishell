@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 20:38:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/12 22:39:37 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:52:33 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,9 @@ void	change_dir(t_minihell *mini)
 		while (mini->env_arr[x])
 		{
 			if (!ft_strncmp(mini->env_arr[x], "HOME", 4) && (!mini->input_arr[1]
-				|| !ft_strncmp(mini->input_arr[1], "~", 1)))
+					|| !ft_strncmp(mini->input_arr[1], "~", 1)))
 				what_dir(mini->env_arr[x], 0);
-			if (!ft_strncmp(mini->env_arr[x], "OLDPWD", 4) &&
-				!ft_strncmp(mini->input_arr[1], "-", 1))
+			if (!ft_strncmp(mini->input_arr[1], "-", 1))
 				what_dir(mini->env_arr[x], 1);
 			x++;
 		}

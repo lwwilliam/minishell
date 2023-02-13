@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/12 22:38:48 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:46:51 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ void	print_env(char **env, t_minihell *mini);
 void	what_dir(char *en, int print);
 void	change_dir(t_minihell *mini);
 void	list_dir(t_minihell *mini);
+
+//lexar
+char	**lexer(char *str, t_minihell *mini);
 
 #endif
