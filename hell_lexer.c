@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:39 by wting             #+#    #+#             */
-/*   Updated: 2023/02/13 16:42:40 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:22:13 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	word_count(char *str)
 		++ret;
 		while (str[i] != ' ' && str[i])
 		{
-			printf("out: %c\n", str[i]);
 			if (str[i] == '"')
 				while (str[++i] != '"' && str[i])
 					printf("in: %c\n", str[i]);
@@ -68,7 +67,6 @@ char	**lexer(char *str, t_minihell *mini)
 	i = 0;
 	if (!str)
 		return (NULL);
-	printf("word count: %d\n",word_count(str));
 	ret = malloc(sizeof(char *) * (word_count(str) + 1));
 	if (!ret)
 		return (NULL);
@@ -76,7 +74,6 @@ char	**lexer(char *str, t_minihell *mini)
 	{
 		if (len_count(str))
 		{
-			++str;
 			ret[i] = ft_substr(str, 0, (len_count(str)));
 			str += len_count(str);
 			++i;
