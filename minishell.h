@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/14 21:20:40 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:42:02 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,16 @@ typedef struct s_minihell
 void	input_handle(t_minihell *mini);
 
 //env handle
-t_env	*env_init(t_minihell *mini, char **in);
-void	print_env(t_env *env_ll, t_minihell *mini);
-//returns the value from the env ll, what the value of the key is 
+t_env	*env_init(char **in);
+void	print_env(t_env *env_ll);
+
+//returns the value from the env_ll, what the value of the key is 
 //e.g input = ("USER") output = lwilliam
 char	*get_env(t_env *env_ll, char *what);
 
 //directory
 void	change_dir(t_minihell *mini);
+void	assign_oldpwd(t_env *env_ll, char *old_pwd);
 //list diretory is not required
 void	list_dir(t_minihell *mini);
 

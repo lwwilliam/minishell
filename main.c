@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/14 20:07:30 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:19:01 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	sigint_handler(int sig)
 {
 	(void)sig;
 	printf("\b\b");
-	printf("int called\n");
-	return ;
+	printf("test\n");
 }
 
 void	sigquit_handler(int sig)
@@ -47,21 +46,26 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	mini.env_ll = env_init(&mini, envp);
+	mini.env_ll = env_init(envp);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	while (1)
 	{
 		input_handle(&mini);
 		if (!ft_strncmp(mini.input_arr[0], "env", 4))
-			print_env(mini.env_ll, &mini);
+			print_env(mini.env_ll);
 		else if (!ft_strncmp(mini.input_arr[0], "pwd", 4))
 			printf("%s\n", getcwd(NULL, 1024));
 		else if (!ft_strncmp(mini.input_arr[0], "ls", 3))
 			list_dir(&mini);
 		else if (!ft_strncmp(mini.input_arr[0], "cd", 3))
 			change_dir(&mini);
-		if (!ft_strncmp(mini.input_arr[0], "exit", 5))
+		else if (!ft_strncmp(mini.input_arr[0], "t", 3))
+		{
+			for (int x = 0; envp[x]; x++)
+				printf("%s\n", envp[x]);
+		}
+		else if (!ft_strncmp(mini.input_arr[0], "exit", 5))
 			return (69);
 	}
 }
