@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/13 16:46:51 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:05:59 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,31 @@ typedef struct s_minihell
 	char	**input_arr;
 }	t_minihell;
 
+
+// struct s_struct
+// {
+// 	char	*str;
+// 	int		type;
+// };
+
+// struct s_struct	*new_struct(char *str, int type)
+// {
+// 	struct s_struct	*ptr;
+
+// 	ptr = malloc(sizeof(struct s_struct));
+// 	ptr->str = str;
+// 	ptr->type = type;
+// 	return (ptr);
+// }
+
+// void	ft_lst(void)
+// {
+// 	t_list	*lst;
+
+// 	lst = NULL;
+// 	ft_lstadd_back(&lst, ft_lstnew(new_struct("Hatsune Miku", 831)));
+// }
+
 //input handle (not done)
 void	input_handle(t_minihell *mini);
 
@@ -45,7 +70,12 @@ void	what_dir(char *en, int print);
 void	change_dir(t_minihell *mini);
 void	list_dir(t_minihell *mini);
 
-//lexar
+//lexer
 char	**lexer(char *str, t_minihell *mini);
+int		len_count(char *str);
+int		word_count(char *str);
+char	*find_env(char	*str, t_minihell *mini);
+char	*strjoin_helper(char *str1, char *str2, int free1, int free2);
+char	*expand(char *str, t_minihell *mini);
 
 #endif

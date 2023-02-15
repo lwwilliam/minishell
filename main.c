@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/13 16:19:33 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:50:52 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	input_handle(t_minihell *mini)
 	{
 		exit(1);
 	}
-	mini->input_arr = lexer(t);
+	printf("t: %s\n", t);
+	char *test = expand(t, mini);
+	printf("str :%s\n", test);
+	free (test);
 }
 
 void	sigint_handler(int sig)
@@ -82,20 +85,19 @@ int	main(int ac, char **av, char **env)
 	signal(SIGQUIT, sigquit_handler);
 	while (1)
 	{
-		input_handle(&mini);
 		env_init(env, &mini);
-		printf("%s\n", mini.input_arr[0]);
-		printf("%s\n", mini.input_arr[1]);
+		input_handle(&mini);
 		// printf("%s\n", mini.input_arr[0]);
-		if (!ft_strncmp(mini.input_arr[0], "env", 3))
-			print_env(env, &mini);
-		else if (!ft_strncmp(mini.input_arr[0], "pwd", 3))
-			printf("%s\n", getcwd(NULL, 1024));
-		else if (!ft_strncmp(mini.input_arr[0], "ls", 2))
-			list_dir(&mini);
-		else if (!ft_strncmp(mini.input_arr[0], "cd", 2))
-			change_dir(&mini);
-		if (!ft_strncmp(mini.input_arr[0], "exit", 4))
-			return (69);
+		// printf("%s\n", mini.input_arr[1]);
+		// if (!ft_strncmp(mini.input_arr[0], "env", 3))
+		// 	print_env(env, &mini);
+		// else if (!ft_strncmp(mini.input_arr[0], "pwd", 3))
+		// 	printf("%s\n", getcwd(NULL, 1024));
+		// else if (!ft_strncmp(mini.input_arr[0], "ls", 2))
+		// 	list_dir(&mini);
+		// else if (!ft_strncmp(mini.input_arr[0], "cd", 2))
+		// 	change_dir(&mini);
+		// if (!ft_strncmp(mini.input_arr[0], "exit", 4))
+		// 	return (69);
 	}
 }
