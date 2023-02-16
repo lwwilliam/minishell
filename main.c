@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/16 18:56:22 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/17 00:02:49 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	main(int ac, char **av, char **envp)
 			unset(&mini);
 		else if (!ft_strncmp(mini.input_arr[0], "export", 7))
 			export(&mini);
+		else if (!ft_strncmp(mini.input_arr[0], "echo", 7))
+			echo(&mini);
 		else if (!ft_strncmp(mini.input_arr[0], "exit", 5))
 			return (69);
 	}

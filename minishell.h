@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/16 19:20:05 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/17 00:05:34 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,14 @@ t_env	*add_node_end(t_env *head, char *key, char *value);
 void	remove_node(t_env **head, char *key);
 void	remove_head_node(t_env **head);
 
-//free
-void	free_funct(char **array);
-
 int		unset(t_minihell *mini);
 int		export(t_minihell *mini);
+int		check_exist(t_env *env_ll, char *key, char *value);
+
+//echo
+void	echo(t_minihell *mini);
+
+//free
+void	free_funct(char **array);
 
 #endif
