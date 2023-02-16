@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/15 11:42:02 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:20:05 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <fcntl.h>
 # include <dirent.h>
 
+//link_list for env
 typedef struct s_env
 {
 	char			*key;
@@ -39,9 +40,6 @@ typedef struct s_minihell
 	char	**input_arr;
 	t_env	*env_ll;
 }	t_minihell;
-
-
-//link_list for env stuff
 
 //input handle (not done)
 void	input_handle(t_minihell *mini);
@@ -56,7 +54,7 @@ char	*get_env(t_env *env_ll, char *what);
 
 //directory
 void	change_dir(t_minihell *mini);
-void	assign_oldpwd(t_env *env_ll, char *old_pwd);
+void	assign_oldpwd(t_env *env_ll, char *old_pwd, t_minihell *mini);
 //list diretory is not required
 void	list_dir(t_minihell *mini);
 
@@ -66,8 +64,14 @@ char	**lexer(char *str, t_minihell *mini);
 //link_list
 t_env	*list_create( char *key, char *value);
 void	insert(t_env **link, t_env *newlist);
+t_env	*add_node_end(t_env *head, char *key, char *value);
+void	remove_node(t_env **head, char *key);
+void	remove_head_node(t_env **head);
 
 //free
 void	free_funct(char **array);
+
+int		unset(t_minihell *mini);
+int		export(t_minihell *mini);
 
 #endif

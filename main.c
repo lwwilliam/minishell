@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/15 20:19:01 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:56:22 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	input_handle(t_minihell *mini)
 	{
 		exit(1);
 	}
-	mini->input_arr = lexer(t, mini);
+	mini->input_arr = ft_split(t, ' ');
 }
 
 void	sigint_handler(int sig)
 {
 	(void)sig;
 	printf("\b\b");
-	printf("test\n");
+	printf("\033[0;32mMinishell$ \033[0m\n");
 }
 
 void	sigquit_handler(int sig)
@@ -60,11 +60,10 @@ int	main(int ac, char **av, char **envp)
 			list_dir(&mini);
 		else if (!ft_strncmp(mini.input_arr[0], "cd", 3))
 			change_dir(&mini);
-		else if (!ft_strncmp(mini.input_arr[0], "t", 3))
-		{
-			for (int x = 0; envp[x]; x++)
-				printf("%s\n", envp[x]);
-		}
+		else if (!ft_strncmp(mini.input_arr[0], "unset", 6))
+			unset(&mini);
+		else if (!ft_strncmp(mini.input_arr[0], "export", 7))
+			export(&mini);
 		else if (!ft_strncmp(mini.input_arr[0], "exit", 5))
 			return (69);
 	}

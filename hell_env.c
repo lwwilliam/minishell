@@ -6,14 +6,12 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/15 20:18:45 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:46:46 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//some issues with the ls_colors env did not work cuz ft_split
-//also need to handle if key_value[1] is null
 t_env	*env_init(char **in)
 {
 	int		x;
