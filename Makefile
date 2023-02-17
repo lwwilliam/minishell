@@ -1,6 +1,6 @@
 NAME = minishell.a
 
-SRC = main.c directory.c hell_lexer.c hell_lexer_utils.c
+SRC = main.c directory.c hell_lexer.c hell_lexer_utils.c hell_expander.c
 
 CC = gcc
 
@@ -10,7 +10,7 @@ all : $(NAME)
 
 $(NAME) : $(SRC)
 	make libft
-	$(CC) $(CFLAGS) $(SRC) -lreadline $(NAME) -o Minishell -fsanitize=address
+	$(CC) $(CFLAGS) $(SRC) -lreadline $(NAME) -o Minishell -fsanitize=address -g
 
 libft:
 	make -C libft

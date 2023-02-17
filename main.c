@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/15 21:50:52 by wting            ###   ########.fr       */
+/*   Updated: 2023/02/17 12:41:22 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,18 @@ void	input_handle(t_minihell *mini)
 	{
 		exit(1);
 	}
-	printf("t: %s\n", t);
 	char *test = expand(t, mini);
-	printf("str :%s\n", test);
-	free (test);
+	printf("test :%s\n", test);
+	char **doub = lexer(test, mini);
+	for (int i = 0; doub[i]; i++)
+	{
+		printf("index:%d str:%s\n", i, doub[i]);
+	}
+	for (int i = 0; doub[i]; i++)
+	{
+		free (doub[i]);
+	}
+	free (doub);
 }
 
 void	sigint_handler(int sig)
