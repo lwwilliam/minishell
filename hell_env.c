@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/16 13:46:46 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:38:52 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_env	*env_init(char **in)
 		insert(&tail->next, env);
 		tail = env;
 	}
+	tail->next = NULL;
 	return (head);
 }
 
@@ -51,7 +52,6 @@ char	*get_env(t_env *env_ll, char *what)
 {
 	int		x;
 	char	*tmp;
-	char	*the_value;
 
 	x = 0;
 	tmp = "(null)";
@@ -61,15 +61,5 @@ char	*get_env(t_env *env_ll, char *what)
 			tmp = env_ll->value;
 		env_ll = env_ll->next;
 	}
-	if (tmp)
-	{
-		the_value = malloc(sizeof(char) * ft_strlen(tmp));
-		while (tmp[x])
-		{
-			the_value[x] = tmp[x];
-			x++;
-		}
-	}
-	the_value[x] = '\0';
-	return (the_value);
+	return (tmp);
 }

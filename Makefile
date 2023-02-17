@@ -1,8 +1,10 @@
 NAME = minishell.a
 
-SRC = main.c hell_env.c directory.c hell_lexer.c str_ll.c free.c export_unset.c echo.c
+SRC = main.c hell_env.c directory.c hell_lexer.c hell_lexer2.c str_ll.c free.c export_unset.c echo.c
 
 CC = gcc
+
+INC :=  -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include
 
 # CFLAGS = -Wall -Wextra -Werror
 
@@ -10,7 +12,7 @@ all : $(NAME)
 
 $(NAME) : $(SRC)
 	make libft
-	$(CC) $(CFLAGS) $(SRC) -lreadline $(NAME) -o Minishell #-fsanitize=address
+	$(CC) $(CFLAGS) $(SRC) $(INC) $(NAME) -o Minishell -fsanitize=address 
 
 libft:
 	make -C libft

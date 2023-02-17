@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 20:38:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/16 18:53:56 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:11:13 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	home(t_minihell *mini)
 	if (!ft_strncmp(new_dir, "(null)", 7))
 		printf("bash: cd: HOME not set\n");
 	chdir(new_dir);
-	free(new_dir);
 }
 
 void	change_dir(t_minihell *mini)
@@ -75,7 +74,6 @@ void	change_dir(t_minihell *mini)
 			printf("Minishell: cd: OLDPWD not set\n");
 		else
 			printf("%s\n", new_dir);
-		free(new_dir);
 	}
 	else if (chdir(mini->input_arr[1]) == -1)
 		printf("Minishell: cd: %s: No such file or directory\n",

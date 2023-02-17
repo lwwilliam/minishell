@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 00:04:37 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/17 00:27:27 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:39:42 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	remove_first(char *str)
 {
-	int 	x;
+	int	x;
 
 	x = 0;
 	while (str[x] != '\0')

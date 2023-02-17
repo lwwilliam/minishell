@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/17 00:05:34 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:37:39 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <fcntl.h>
 # include <dirent.h>
 
+# define VALID "not a valid identifier"
+
 //link_list for env
 typedef struct s_env
 {
@@ -38,6 +40,7 @@ typedef struct s_env
 typedef struct s_minihell
 {
 	char	**input_arr;
+	char	*yes;
 	t_env	*env_ll;
 }	t_minihell;
 
@@ -58,9 +61,6 @@ void	assign_oldpwd(t_env *env_ll, char *old_pwd, t_minihell *mini);
 //list diretory is not required
 void	list_dir(t_minihell *mini);
 
-//lexar
-char	**lexer(char *str, t_minihell *mini);
-
 //link_list
 t_env	*list_create( char *key, char *value);
 void	insert(t_env **link, t_env *newlist);
@@ -77,5 +77,15 @@ void	echo(t_minihell *mini);
 
 //free
 void	free_funct(char **array);
+
+//lexer
+char	**lexer(char *str, t_minihell *mini);
+int		len_count(char *str);
+int		word_count(char *str);
+char	*find_env(char	*str, t_minihell *mini);
+char	*strjoin_helper(char *str1, char *str2, int free1, int free2);
+char	*expand(char *str, t_minihell *mini);
+int		env_name_len(char *str, int bool);
+char	*expand_helper(char *str, t_minihell *mini);
 
 #endif
