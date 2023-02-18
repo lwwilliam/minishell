@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/17 19:40:08 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:49:37 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,20 @@ int	unset(t_minihell *mini)
 	return (0);
 }
 
-int	check_exist(t_env *env_ll, char *key, char *value)
+int	check_exist(t_env *env_ll, char *key, char *value, int yes_no)
 {
-	while (env_ll != NULL)
+	if (yes_no == 1)
+	{
+		free(key);
+		free(value);
+		return (1);
+	}
+	while (env_ll != NULL && yes_no == 0)
 	{
 		if (!ft_strncmp(env_ll->key, key, ft_strlen(key)))
 		{
+			free(env_ll->value);
+			free(key);
 			env_ll->value = value;
 			return (1);
 		}
@@ -50,24 +58,32 @@ int	check_exist(t_env *env_ll, char *key, char *value)
 	return (0);
 }
 
-void	export_equal(t_minihell *mini, t_env *ll)
+void	export_equal(t_minihell *mini, t_env *env)
 {
+	char	x;
+	t_env	*ll;
+
+	x = 33;
 	(void) mini;
-	while (ll != NULL)
+	while (x < 127)
 	{
-		printf("declare -x %s=\"%s\"\n", ll->key, ll->value);
-		ll = ll->next;
+		ll = env;
+		while (ll != NULL)
+		{
+			if (ll->key[0] == x)
+				printf("declare -x %s=\"%s\"\n", ll->key, ll->value);
+			ll = ll->next;
+		}
+		x++;
 	}
 }
 
-int	key_len(char *str)
+int	export_error(char *in, char *key, char *value)
 {
-	int	i;
-
-	i = -1;
-	while (str[++i] && str[i] != '=')
-		;
-	return (i);
+	printf("Minishell: export: '%s': %s\n", in, VALID);
+	free(value);
+	free(key);
+	return (1);
 }
 
 int	export(t_minihell *mini)
@@ -76,25 +92,24 @@ int	export(t_minihell *mini)
 	char	*value;
 	int		x;
 	int		err;
+	int		yes_no;
 
 	x = 0;
+	yes_no = 0;
 	if (!mini->input_arr[1])
 		export_equal(mini, mini->env_ll);
 	while (mini->input_arr[++x])
 	{
 		if (!ft_strchr(mini->input_arr[x], '='))
-			return (1);
+			yes_no = 1;
 		key = ft_substr(mini->input_arr[x], 0, key_len(mini->input_arr[x]));
 		value = ft_substr(mini->input_arr[x], key_len(mini->input_arr[x]) + 1,
 				ft_strlen(mini->input_arr[x]) - key_len(mini->input_arr[x]));
-		err = check_exist(mini->env_ll, key, value);
+		err = check_exist(mini->env_ll, key, value, yes_no);
 		if (ft_isdigit(key[0]))
-		{
-			printf("Minishell: export: '%s': %s\n", mini->input_arr[x], VALID);
-			err = 1;
-		}
+			err = export_error(mini->input_arr[x], key, value);
 		if (err == 0)
-			add_node_end(mini->env_ll, key, value);
+			add_node_end(mini->env_ll, key, value, yes_no);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/17 20:35:47 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:46:27 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	input_handle(t_minihell *mini)
 	add_history(t);
 	if (!t)
 	{
-		exit(1);
+		end(mini);
 	}
 	test = expand(t, mini);
 	mini->input_arr = lexer(test, mini);
@@ -41,8 +41,6 @@ static void	signal_handler(int num)
 	{
 		printf("\033[0;32mMinishell$ \033[0m");
 		printf("%s", rl_line_buffer);
-		// write(1, "\033[0;32mMinishell$ \033[0m ", ft_strlen("minishell> "));
-		// write(1, rl_line_buffer, ft_strlen(rl_line_buffer));
 	}
 }
 
@@ -72,9 +70,7 @@ void	command_handle(t_minihell *mini)
 	else if (!ft_strncmp(mini->input_arr[0], "echo", 7))
 		echo(mini);
 	else if (!ft_strncmp(mini->input_arr[0], "exit", 5))
-	{
-		exit(0);
-	}
+		end(mini);
 	else if (mini->input_arr[0])
 		printf("Minishell: %s: command not found\n", mini->input_arr[0]);
 }
@@ -94,8 +90,9 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		signal(SIGINT, signal_handler);
-		signal(SIGQUIT,SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		input_handle(&mini);
 		command_handle(&mini);
+		free_funct(mini.input_arr);
 	}
 }

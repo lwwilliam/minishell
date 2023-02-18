@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/17 19:37:39 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:33:41 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	int				print;
 	struct s_env	*next;
 }	t_env;
+//if printf == 0 ther print
 
 typedef struct s_minihell
 {
@@ -64,22 +66,25 @@ void	list_dir(t_minihell *mini);
 //link_list
 t_env	*list_create( char *key, char *value);
 void	insert(t_env **link, t_env *newlist);
-t_env	*add_node_end(t_env *head, char *key, char *value);
+t_env	*add_node_end(t_env *head, char *key, char *value, int print);
 void	remove_node(t_env **head, char *key);
 void	remove_head_node(t_env **head);
 
 int		unset(t_minihell *mini);
 int		export(t_minihell *mini);
-int		check_exist(t_env *env_ll, char *key, char *value);
+int		check_exist(t_env *env_ll, char *key, char *value, int yes_no);
 
 //echo
 void	echo(t_minihell *mini);
 
 //free
 void	free_funct(char **array);
+void	freelist(t_env **env);
+void	end(t_minihell *mini);
 
 //lexer
 char	**lexer(char *str, t_minihell *mini);
+int		key_len(char *str);
 int		len_count(char *str);
 int		word_count(char *str);
 char	*find_env(char	*str, t_minihell *mini);

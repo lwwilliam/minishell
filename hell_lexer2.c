@@ -6,11 +6,21 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:27:43 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/17 17:29:25 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:25:29 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	key_len(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i] && str[i] != '=')
+		;
+	return (i);
+}
 
 int	env_name_len(char *str, int bool)
 {

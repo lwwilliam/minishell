@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:23:59 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/16 15:01:50 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:46:01 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,30 @@ void	free_funct(char **array)
 		tmp++;
 	}
 	free(array);
+}
+
+void	freelist(t_env **env)
+{
+	t_env	*current;
+	t_env	*next;
+
+	current = *env;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current->key);
+		free(current->value);
+		free (current);
+		current = next;
+	}
+	*env = NULL;
+}
+
+void	end(t_minihell *mini)
+{
+	rl_clear_history();
+	freelist(&mini->env_ll);
+	printf("exit\n");
+	system("leaks Minishell");
+	exit(0);
 }

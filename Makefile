@@ -12,7 +12,7 @@ all : $(NAME)
 
 $(NAME) : $(SRC)
 	make libft
-	$(CC) $(CFLAGS) $(SRC) $(INC) $(NAME) -o Minishell -fsanitize=address 
+	$(CC) $(CFLAGS) $(SRC) $(INC) $(NAME) -o Minishell #-fsanitize=address 
 
 libft:
 	make -C libft

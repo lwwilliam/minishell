@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/17 19:38:52 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:34:28 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_env	*env_init(char **in)
 		key_value = ft_split(in[x], '=');
 		env = list_create(key_value[0], key_value[1]);
 		insert(&head, env);
+		free(key_value);
 		tail = env;
 	}
 	while (in[++x])
@@ -33,6 +34,7 @@ t_env	*env_init(char **in)
 		key_value = ft_split(in[x], '=');
 		env = list_create(key_value[0], key_value[1]);
 		insert(&tail->next, env);
+		free(key_value);
 		tail = env;
 	}
 	tail->next = NULL;
@@ -43,7 +45,8 @@ void	print_env(t_env *env_ll)
 {
 	while (env_ll != NULL)
 	{
-		printf("%s=%s\n", env_ll->key, env_ll->value);
+		if (env_ll->print == 0)
+			printf("%s=%s\n", env_ll->key, env_ll->value);
 		env_ll = env_ll->next;
 	}
 }

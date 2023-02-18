@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 20:38:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/17 19:11:13 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:33:57 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	assign_oldpwd(t_env *env_ll, char *old_pwd, t_minihell *mini)
 		}
 		env_ll = env_ll->next;
 	}
-	add_node_end(mini->env_ll, "OLDPWD", old_pwd);
+	add_node_end(mini->env_ll, "OLDPWD", old_pwd, 0);
 }
 
 void	home(t_minihell *mini)

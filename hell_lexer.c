@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:39 by wting             #+#    #+#             */
-/*   Updated: 2023/02/17 19:39:25 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:34:45 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char	*expand(char *str, t_minihell *mini)
 	}
 	if (!ret)
 		ret = ft_strdup(str);
+	free(str);
 	return (ret);
 }
 

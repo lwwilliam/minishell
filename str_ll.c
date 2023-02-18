@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:22:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/16 19:43:51 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:26:45 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	insert(t_env **link, t_env *newlist)
 	*link = newlist;
 }
 
-t_env	*add_node_end(t_env *head, char *key, char *value)
+t_env	*add_node_end(t_env *head, char *key, char *value, int print)
 {
 	t_env	*new_node;
 	t_env	*current_node;
@@ -40,6 +40,7 @@ t_env	*add_node_end(t_env *head, char *key, char *value)
 		return (NULL);
 	new_node->key = key;
 	new_node->value = value;
+	new_node->print = print;
 	new_node->next = NULL;
 	if (head == NULL)
 	{
@@ -68,6 +69,8 @@ void	remove_node(t_env **head, char *key)
 				*head = current->next;
 			else
 				previous->next = current->next;
+			free(current->key);
+			free(current->value);
 			free(current);
 			return ;
 		}
@@ -84,5 +87,7 @@ void	remove_head_node(t_env **head)
 		return ;
 	temp = *head;
 	*head = (*head)->next;
+	free(temp->key);
+	free(temp->value);
 	free(temp);
 }
