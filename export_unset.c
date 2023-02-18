@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/18 18:49:37 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/18 21:40:28 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int	check_exist(t_env *env_ll, char *key, char *value, int yes_no)
 {
 	if (yes_no == 1)
 	{
-		free(key);
-		free(value);
 		return (1);
 	}
 	while (env_ll != NULL && yes_no == 0)
@@ -71,7 +69,12 @@ void	export_equal(t_minihell *mini, t_env *env)
 		while (ll != NULL)
 		{
 			if (ll->key[0] == x)
-				printf("declare -x %s=\"%s\"\n", ll->key, ll->value);
+			{
+				if (ll->value[0])
+					printf("declare -x %s=\"%s\"\n", ll->key, ll->value);
+				else
+					printf("declare -x %s\n", ll->key);
+			}
 			ll = ll->next;
 		}
 		x++;
@@ -84,6 +87,22 @@ int	export_error(char *in, char *key, char *value)
 	free(value);
 	free(key);
 	return (1);
+}
+
+void	fuckin_funct(char *input, t_env *env_ll, char *key, char *value)
+{
+	int	equal_or_no;
+	int	check;
+
+	check = 0;
+	equal_or_no = 0;
+	if (!ft_strchr(input, '='))
+		equal_or_no = 1;
+	if (equal_or_no == 1)
+		check = check_exist(env_ll, key, value, 1);
+	if (equal_or_no == 1 && check == 1)
+		add_node_end(env_ll, key, value, 1);
+	// printf("(%s) (%s) (%s)\n", input, key, value);
 }
 
 int	export(t_minihell *mini)
@@ -110,6 +129,7 @@ int	export(t_minihell *mini)
 			err = export_error(mini->input_arr[x], key, value);
 		if (err == 0)
 			add_node_end(mini->env_ll, key, value, yes_no);
+		fuckin_funct(mini->input_arr[x], mini->env_ll, key, value);
 	}
 	return (0);
 }
