@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/18 21:40:28 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/19 00:19:56 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	export_equal(t_minihell *mini, t_env *env)
 		{
 			if (ll->key[0] == x)
 			{
-				if (ll->value[0])
+				if (ll->print == 0)
 					printf("declare -x %s=\"%s\"\n", ll->key, ll->value);
 				else
 					printf("declare -x %s\n", ll->key);
@@ -102,7 +102,6 @@ void	fuckin_funct(char *input, t_env *env_ll, char *key, char *value)
 		check = check_exist(env_ll, key, value, 1);
 	if (equal_or_no == 1 && check == 1)
 		add_node_end(env_ll, key, value, 1);
-	// printf("(%s) (%s) (%s)\n", input, key, value);
 }
 
 int	export(t_minihell *mini)

@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:23:59 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/18 15:46:01 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/19 00:22:29 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	end(t_minihell *mini)
 	rl_clear_history();
 	freelist(&mini->env_ll);
 	printf("exit\n");
-	system("leaks Minishell");
+	// system("leaks Minishell");
 	exit(0);
 }

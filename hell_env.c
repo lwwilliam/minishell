@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/18 18:34:28 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/19 00:23:00 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ void	print_env(t_env *env_ll)
 
 char	*get_env(t_env *env_ll, char *what)
 {
-	int		x;
 	char	*tmp;
 
-	x = 0;
 	tmp = "(null)";
 	while (env_ll != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:27:43 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/18 16:25:29 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/19 00:23:33 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	len_count(char *str)
 		else if (str[i] == '\'')
 			while (str[++i] != '\'' && str[i])
 				;
-			++i;
+		++i;
 	}
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:39 by wting             #+#    #+#             */
-/*   Updated: 2023/02/18 15:34:45 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/19 00:23:10 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,9 @@ void	word_count_helper(char **str)
 
 int	word_count(char *str)
 {
-	int	i;
 	int	ret;
 
 	ret = 0;
-	i = 0;
 	while (*str)
 	{
 		while (*str && *str == ' ')
