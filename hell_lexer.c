@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:39 by wting             #+#    #+#             */
-/*   Updated: 2023/02/19 00:23:10 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/22 13:12:17 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,11 @@ char	*remove_quote(char *str, int len)
 	while (str[i])
 	{
 		if (str[i] == '\'')
-		{
 			while (str[++i] && str[i] != '\'')
 				ret[j++] = str[i];
-		}
 		else if (str[i] == '"')
-		{
 			while (str[++i] && str[i] != '"')
 				ret[j++] = str[i];
-		}
 		else
 			ret[j++] = str[i];
 		++i;

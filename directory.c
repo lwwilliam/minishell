@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 20:38:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/18 18:33:57 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/22 21:51:12 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	list_dir(t_minihell *mini)
 	struct dirent	*dir;
 
 	(void)mini;
-	d = opendir(".");
+	d = opendir("/usr/local/bin");
 	if (d)
 	{
 		while (1)
@@ -39,12 +39,28 @@ void	assign_oldpwd(t_env *env_ll, char *old_pwd, t_minihell *mini)
 	{
 		if (!ft_strncmp(env_ll->key, "OLDPWD", 6))
 		{
+			free(env_ll->value);
 			env_ll->value = old_pwd;
 			return ;
 		}
 		env_ll = env_ll->next;
 	}
 	add_node_end(mini->env_ll, "OLDPWD", old_pwd, 0);
+}
+
+void	pwd_update(t_env *env_ll, char *new_pwd, t_minihell *mini)
+{
+	while (env_ll != NULL)
+	{
+		if (!ft_strncmp(env_ll->key, "PWD", 3))
+		{
+			free(env_ll->value);
+			env_ll->value = new_pwd;
+			return ;
+		}
+		env_ll = env_ll->next;
+	}
+	add_node_end(mini->env_ll, "PWD", new_pwd, 0);
 }
 
 void	home(t_minihell *mini)
@@ -60,14 +76,14 @@ void	home(t_minihell *mini)
 void	change_dir(t_minihell *mini)
 {
 	char	*new_dir;
-	char	*old_pwd;
+	char	*pwd;
 
-	old_pwd = getcwd(NULL, 1024);
+	pwd = getcwd(NULL, 1024);
 	if (!mini->input_arr[1])
 		home(mini);
-	else if (!ft_strncmp(mini->input_arr[1], "~", 1))
+	else if (!ft_strncmp(mini->input_arr[1], "~", 2))
 		chdir(getenv("HOME"));
-	else if (!ft_strncmp(mini->input_arr[1], "-", 1))
+	else if (!ft_strncmp(mini->input_arr[1], "-", 2))
 	{
 		new_dir = get_env(mini->env_ll, "OLDPWD");
 		if (chdir(new_dir) == -1 && !ft_strncmp(new_dir, "(null)", 7))
@@ -78,5 +94,7 @@ void	change_dir(t_minihell *mini)
 	else if (chdir(mini->input_arr[1]) == -1)
 		printf("Minishell: cd: %s: No such file or directory\n",
 			mini->input_arr[1]);
-	assign_oldpwd(mini->env_ll, old_pwd, mini);
+	assign_oldpwd(mini->env_ll, pwd, mini);
+	pwd = getcwd(NULL, 1024);
+	pwd_update(mini->env_ll, pwd, mini);
 }

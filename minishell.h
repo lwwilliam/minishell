@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/18 18:33:41 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/22 22:08:55 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ char	*get_env(t_env *env_ll, char *what);
 //directory
 void	change_dir(t_minihell *mini);
 void	assign_oldpwd(t_env *env_ll, char *old_pwd, t_minihell *mini);
+void	pwd_update(t_env *env_ll, char *new_pwd, t_minihell *mini);
 //list diretory is not required
 void	list_dir(t_minihell *mini);
+
+void	get_pwd(void);
 
 //link_list
 t_env	*list_create( char *key, char *value);
@@ -72,10 +75,14 @@ void	remove_head_node(t_env **head);
 
 int		unset(t_minihell *mini);
 int		export(t_minihell *mini);
-int		check_exist(t_env *env_ll, char *key, char *value, int yes_no);
+int		export_error(char *in, char *key, char *value);
+int		check_exist(t_env *env_ll, char *key, char *value);
 
 //echo
 void	echo(t_minihell *mini);
+
+//signals
+void	signal_handler(int num);
 
 //free
 void	free_funct(char **array);

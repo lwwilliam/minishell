@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/19 00:23:00 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:46:16 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_env	*env_init(char **in)
 
 void	print_env(t_env *env_ll)
 {
+	printf("HELLO\n");
 	while (env_ll != NULL)
 	{
 		if (env_ll->print == 0)
@@ -59,7 +60,10 @@ char	*get_env(t_env *env_ll, char *what)
 	while (env_ll != NULL)
 	{
 		if (!ft_strncmp(env_ll->key, what, ft_strlen(what)))
+		{
 			tmp = env_ll->value;
+			break ;
+		}
 		env_ll = env_ll->next;
 	}
 	return (tmp);

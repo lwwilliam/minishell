@@ -6,13 +6,13 @@ CC = gcc
 
 INC :=  -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include
 
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
 $(NAME) : $(SRC)
 	make libft
-	$(CC) $(CFLAGS) $(SRC) $(INC) $(NAME) -o Minishell #-fsanitize=address 
+	$(CC) $(CFLAGS) $(SRC) $(INC) $(NAME) -o Minishell #-fsanitize=address -g
 
 libft:
 	make -C libft
