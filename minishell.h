@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/22 22:08:55 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/22 23:26:05 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <termios.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <sys/types.h> 
+# include <sys/wait.h> 
 
 # define VALID "not a valid identifier"
 
@@ -37,7 +39,7 @@ typedef struct s_env
 	int				print;
 	struct s_env	*next;
 }	t_env;
-//if printf == 0 ther print
+//if print == 0 then print
 
 typedef struct s_minihell
 {
@@ -76,7 +78,8 @@ void	remove_head_node(t_env **head);
 int		unset(t_minihell *mini);
 int		export(t_minihell *mini);
 int		export_error(char *in, char *key, char *value);
-int		check_exist(t_env *env_ll, char *key, char *value);
+// int		check_exist(t_env *env_ll, char *key, char *value, int yes_no)
+
 
 //echo
 void	echo(t_minihell *mini);
