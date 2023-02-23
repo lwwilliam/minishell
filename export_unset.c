@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_unset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/22 23:28:31 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:49:16 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	export(t_minihell *mini)
 	int		x;
 	int		err;
 	int		yes_no;
-//yes_no if it is 1 that means it has no "=" 
+
 	x = 0;
 	if (!mini->input_arr[1])
 		export_equal(mini, mini->env_ll);

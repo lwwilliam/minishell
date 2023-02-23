@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   hell_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:39 by wting             #+#    #+#             */
-/*   Updated: 2023/02/22 13:12:17 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:17:57 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	remove_quote_helper(char *str, char *ret, int *i, int *j)
+{
+	if (str[*i] == '\'')
+		while (str[++*i] && str[*i] != '\'')
+			ret[(*j)++] = str[*i];
+	else if (str[*i] == '"')
+		while (str[++*i] && str[*i] != '"')
+			ret[(*j)++] = str[*i];
+	else
+		ret[(*j)++] = str[*i];
+	++*i;
+}
 
 char	*remove_quote(char *str, int len)
 {
@@ -26,75 +39,9 @@ char	*remove_quote(char *str, int len)
 	if (!ret)
 		return (NULL);
 	while (str[i])
-	{
-		if (str[i] == '\'')
-			while (str[++i] && str[i] != '\'')
-				ret[j++] = str[i];
-		else if (str[i] == '"')
-			while (str[++i] && str[i] != '"')
-				ret[j++] = str[i];
-		else
-			ret[j++] = str[i];
-		++i;
-	}
+		remove_quote_helper(str, ret, &i, &j);
 	ret[j] = 0;
 	free (str);
-	return (ret);
-}
-
-char	*expand(char *str, t_minihell *mini)
-{
-	int		i;
-	char	*ret;
-	int		count;
-	char	*tmp;
-
-	ret = NULL;
-	count = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '\'')
-		{
-			while (str[++i] && str[i] != '\'')
-				;
-		}
-		if (str[i] == '"')
-		{
-			while (str[++i] && str[i] != '"')
-			{
-				if (str[i] == '$' && !count && str[i + 1] && str[i + 1] != ' ')
-				{
-					ret = expand_helper(str, mini);
-					++count;
-				}
-				else if (str[i] == '$' && str[i + 1] && str[i + 1] != ' ')
-				{
-					tmp = expand_helper(ret, mini);
-					free (ret);
-					ret = ft_strdup(tmp);
-					free (tmp);
-					++count;
-				}
-			}
-		}
-		if (str[i] == '$' && count == 0 && str[i + 1] && str[i + 1] != ' ')
-		{
-			ret = expand_helper(str, mini);
-			++count;
-		}
-		else if (str[i] == '$' && str[i + 1] && str[i + 1] != ' ')
-		{
-			tmp = expand_helper(ret, mini);
-			free (ret);
-			ret = ft_strdup(tmp);
-			free (tmp);
-			++count;
-		}
-	}
-	if (!ret)
-		ret = ft_strdup(str);
-	free(str);
 	return (ret);
 }
 

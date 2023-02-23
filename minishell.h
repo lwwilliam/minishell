@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/22 23:26:05 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:18:04 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int		export(t_minihell *mini);
 int		export_error(char *in, char *key, char *value);
 // int		check_exist(t_env *env_ll, char *key, char *value, int yes_no)
 
-
 //echo
 void	echo(t_minihell *mini);
 
@@ -97,7 +96,6 @@ char	**lexer(char *str, t_minihell *mini);
 int		key_len(char *str);
 int		len_count(char *str);
 int		word_count(char *str);
-char	*find_env(char	*str, t_minihell *mini);
 char	*strjoin_helper(char *str1, char *str2, int free1, int free2);
 char	*expand(char *str, t_minihell *mini);
 int		env_name_len(char *str, int bool);

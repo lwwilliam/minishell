@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/22 21:32:06 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:20:33 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	input_handle(t_minihell *mini)
 	char	*t;
 	char	*test;
 
-	t = readline("\033[0;32mMinishell$ \033[0m");
-	add_history(t);
-	if (!t)
+	mini->yes = readline("\033[0;32mMinishell$ \033[0m");
+	add_history(mini->yes);
+	if (!mini->yes)
 	{
 		end(mini);
 	}
-	if (!check_open_quotes(t))
+	if (!check_open_quotes(mini->yes))
 	{
-		test = expand(t, mini);
+		test = expand(mini->yes, mini);
 		mini->input_arr = lexer(test, mini);
 		free(test);
 	}
