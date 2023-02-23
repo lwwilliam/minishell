@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/22 23:28:31 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:17:08 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	unset(t_minihell *mini)
 			err = 1;
 		}
 		if (err == 0 && !ft_strncmp(mini->input_arr[x], mini->env_ll->key,
-				ft_strlen(mini->input_arr[x])))
+				ft_strlen(mini->input_arr[x]) + 1))
 			remove_head_node(&mini->env_ll);
 		if (err == 0)
 			remove_node(&mini->env_ll, mini->input_arr[x]);
@@ -36,11 +36,11 @@ int	unset(t_minihell *mini)
 	return (0);
 }
 
-int	check_exist(t_env *env_ll, char *key, char *value, int yes_no)
+int	check_exist(t_env *env_ll, char *key, char *value)
 {
 	while (env_ll != NULL)
 	{
-		if (!ft_strncmp(env_ll->key, key, ft_strlen(key)))
+		if (!ft_strncmp(env_ll->key, key, ft_strlen(key) + 1))
 		{
 			free(env_ll->value);
 			free(key);
@@ -105,7 +105,7 @@ int	export(t_minihell *mini)
 	int		x;
 	int		err;
 	int		yes_no;
-//yes_no if it is 1 that means it has no "=" 
+
 	x = 0;
 	if (!mini->input_arr[1])
 		export_equal(mini, mini->env_ll);
@@ -117,8 +117,7 @@ int	export(t_minihell *mini)
 		key = ft_substr(mini->input_arr[x], 0, key_len(mini->input_arr[x]));
 		value = ft_substr(mini->input_arr[x], key_len(mini->input_arr[x]) + 1,
 				ft_strlen(mini->input_arr[x]) - key_len(mini->input_arr[x]));
-		printf("key %s value %s\n", key, value);
-		err = check_exist(mini->env_ll, key, value, yes_no);
+		err = check_exist(mini->env_ll, key, value);
 		if (ft_isdigit(key[0]))
 			err = export_error(mini->input_arr[x], key, value);
 		if (err == 0)

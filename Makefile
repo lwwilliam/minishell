@@ -1,6 +1,7 @@
 NAME = minishell.a
 
-SRC = main.c hell_env.c directory.c hell_lexer.c hell_lexer2.c str_ll.c free.c export_unset.c echo.c
+SRC = main.c hell_env.c directory.c hell_lexer.c hell_lexer2.c \
+		str_ll.c free.c export_unset.c echo.c execve.c
 
 CC = gcc
 
@@ -29,5 +30,8 @@ fclean : clean
 
 re : fclean all
 	make re -C libft
+
+f:
+	rm -r Minishell.dSYM
 
 .PHONY :libft $(NAME)

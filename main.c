@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/22 21:32:06 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:16:56 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,40 +67,12 @@ void	signal_handler(int num)
 	}
 }
 
-void	get_pwd(void)
-{
-	char	*pwd;
-
-	pwd = getcwd(NULL, 1024);
-	printf("%s\n", pwd);
-	free(pwd);
-}
-
-void	test(t_minihell *hell)
-{
-	char	*test[3];
-	pid_t	pid;
-	int		child_status;
-
-	test[0] = "/bin/cat";
-	test[1] = hell->input_arr[1];
-	test[2] = hell->input_arr[2];
-	pid = fork();
-	if (pid == 0)
-		execve(test[0], test, NULL);
-	else
-		waitpid(-1, NULL, 0);
-	return ;
-}
-
 void	command_handle(t_minihell *mini)
 {
 	if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "env", 4))
 		print_env(mini->env_ll);
 	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "pwd", 4))
 		get_pwd();
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "ls", 3))
-		list_dir(mini);
 	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "cd", 3))
 		change_dir(mini);
 	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "unset", 6))
@@ -111,30 +83,58 @@ void	command_handle(t_minihell *mini)
 		echo(mini);
 	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "exit", 5))
 		end(mini);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "cat", 4))
-		test(mini);
+	// else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "ls", 3))
+	// 	list_dir(mini);
+	// else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "cat", 4))
+	// 	test(mini);
 	else if (mini->input_arr && mini->input_arr[0])
 		printf("Minishell: %s: command not found\n", mini->input_arr[0]);
+}
+
+int	builtin_check(t_minihell *mini)
+{
+	if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "env", 4))
+		return (1);
+	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "pwd", 4))
+		return (1);
+	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "cd", 3))
+		return (1);
+	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "unset", 6))
+		return (1);
+	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "export", 7))
+		return (1);
+	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "echo", 7))
+		return (1);
+	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "exit", 5))
+		return (1);
+	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	t_minihell		mini;
-	struct termios	termios_new;
+	int				builtin;
 
 	(void)ac;
 	(void)av;
+	builtin = 0;
 	mini.env_ll = env_init(envp);
-	tcgetattr(STDIN_FILENO, &termios_new);
-	termios_new.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &termios_new);
-	tcsetattr(0, 0, &termios_new);
+	term();
 	while (1)
 	{
 		signal(SIGINT, signal_handler);
 		signal(SIGQUIT, SIG_IGN);
 		input_handle(&mini);
-		command_handle(&mini);
+		if (mini.input_arr[0] == 0)
+		{
+			free_funct(mini.input_arr);
+			continue ;
+		}
+		builtin = builtin_check(&mini);
+		if (builtin == 1)
+			command_handle(&mini);
+		else
+			test(&mini);
 		free_funct(mini.input_arr);
 	}
 }

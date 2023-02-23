@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/22 23:26:05 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:17:18 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_minihell
 	t_env	*env_ll;
 }	t_minihell;
 
+void	term(void);
+
 //input handle (not done)
 void	input_handle(t_minihell *mini);
 
@@ -63,8 +65,6 @@ char	*get_env(t_env *env_ll, char *what);
 void	change_dir(t_minihell *mini);
 void	assign_oldpwd(t_env *env_ll, char *old_pwd, t_minihell *mini);
 void	pwd_update(t_env *env_ll, char *new_pwd, t_minihell *mini);
-//list diretory is not required
-void	list_dir(t_minihell *mini);
 
 void	get_pwd(void);
 
@@ -78,7 +78,7 @@ void	remove_head_node(t_env **head);
 int		unset(t_minihell *mini);
 int		export(t_minihell *mini);
 int		export_error(char *in, char *key, char *value);
-// int		check_exist(t_env *env_ll, char *key, char *value, int yes_no)
+int		check_exist(t_env *env_ll, char *key, char *value);
 
 
 //echo
@@ -102,5 +102,10 @@ char	*strjoin_helper(char *str1, char *str2, int free1, int free2);
 char	*expand(char *str, t_minihell *mini);
 int		env_name_len(char *str, int bool);
 char	*expand_helper(char *str, t_minihell *mini);
+
+//list diretory is not required
+// void	list_dir(t_minihell *mini);
+void	test(t_minihell *hell);
+
 
 #endif

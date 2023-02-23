@@ -6,31 +6,19 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 20:38:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/22 21:51:12 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:04:00 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	list_dir(t_minihell *mini)
+void	get_pwd(void)
 {
-	DIR				*d;
-	struct dirent	*dir;
+	char	*pwd;
 
-	(void)mini;
-	d = opendir("/usr/local/bin");
-	if (d)
-	{
-		while (1)
-		{
-			dir = readdir(d);
-			if (dir == NULL)
-				break ;
-			printf("%s	", dir->d_name);
-		}
-		closedir(d);
-	}
-	printf("\n");
+	pwd = getcwd(NULL, 1024);
+	printf("%s\n", pwd);
+	free(pwd);
 }
 
 void	assign_oldpwd(t_env *env_ll, char *old_pwd, t_minihell *mini)

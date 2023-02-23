@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 00:04:37 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/20 18:08:01 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:17:27 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	remove_first(char *str)
 void	echo(t_minihell *mini)
 {
 	int		x;
-	char	*tmp;
 
 	x = 0;
 	while (mini->input_arr[++x])
