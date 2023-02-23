@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 16:17:18 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:19:46 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ typedef struct s_minihell
 
 void	term(void);
 
+//built_in
+void	command_handle(t_minihell *mini);
+int		builtin_check(t_minihell *mini);
+
 //input handle (not done)
 void	input_handle(t_minihell *mini);
 
@@ -90,14 +94,13 @@ void	signal_handler(int num);
 //free
 void	free_funct(char **array);
 void	freelist(t_env **env);
-void	end(t_minihell *mini);
+void	end(t_minihell *mini, int print);
 
 //lexer
 char	**lexer(char *str, t_minihell *mini);
 int		key_len(char *str);
 int		len_count(char *str);
 int		word_count(char *str);
-char	*find_env(char	*str, t_minihell *mini);
 char	*strjoin_helper(char *str1, char *str2, int free1, int free2);
 char	*expand(char *str, t_minihell *mini);
 int		env_name_len(char *str, int bool);
@@ -105,7 +108,6 @@ char	*expand_helper(char *str, t_minihell *mini);
 
 //list diretory is not required
 // void	list_dir(t_minihell *mini);
-void	test(t_minihell *hell);
-
+void	not_builtin(t_minihell *mini);
 
 #endif

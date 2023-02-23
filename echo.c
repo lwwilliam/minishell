@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 00:04:37 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 10:17:27 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:13:26 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,12 @@ void	echo(t_minihell *mini)
 	x = 0;
 	while (mini->input_arr[++x])
 	{
+		if (!ft_strncmp(mini->input_arr[x], "-n", 2))
+			x++;
 		if (ft_strncmp(mini->input_arr[x], "(null)", 6))
 			printf("%s ", mini->input_arr[x]);
 	}
-	printf("\n");
+	if (ft_strncmp(mini->input_arr[1], "-n", 2))
+		printf("\n");
+	printf("\b");
 }

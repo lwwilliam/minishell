@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 16:33:24 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:40:26 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,28 @@ int	list_dir(t_minihell *mini, char *path)
 			dir = readdir(d);
 			if (dir == NULL)
 				break ;
-			// printf("ld: (%s)\n", dir->d_name);
 			if (!ft_strncmp(mini->input_arr[0], dir->d_name,
 					ft_strlen(mini->input_arr[0]) + 1))
+			{
+				closedir(d);
 				return (1);
+			}
 		}
 		closedir(d);
 	}
 	return (2);
 }
 
-void	test(t_minihell *mini)
+//2d array of path in $PATH
+char	*path_array(t_minihell *mini, char *from_env)
 {
 	char	**twodpath;
 	char	*command;
-	char	*test[5];
-	pid_t	pid;
 	int		x;
 
 	x = 0;
-	twodpath = ft_split(get_env(mini->env_ll, "PATH"), ':');
+	command = NULL;
+	twodpath = ft_split(from_env, ':');
 	while (twodpath[x])
 	{
 		if (list_dir(mini, twodpath[x]) == 1)
@@ -57,23 +59,34 @@ void	test(t_minihell *mini)
 		}
 		x++;
 	}
-	test[0] = command;
-	test[1] = mini->input_arr[1];
-	test[2] = mini->input_arr[2];
+	free_funct(twodpath);
+	return (command);
+}
+
+void	not_builtin(t_minihell *mini)
+{
+	char	*command;
+	char	*exec[5];
+	pid_t	pid;
+
+	command = path_array(mini, get_env(mini->env_ll, "PATH"));
+	exec[0] = command;
+	exec[1] = mini->input_arr[1];
+	exec[2] = mini->input_arr[2];
+	exec[3] = mini->input_arr[3];
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(test[0], test, NULL) == -1)
+		if (execve(exec[0], exec, NULL) == -1)
 		{
 			printf("Minishell: %s: command not found\n", mini->input_arr[0]);
-			end(mini);
-			exit(0);
+			free(command);
+			end(mini, 0);
 		}
 	}
 	else
 		waitpid(-1, NULL, 0);
 	free(command);
-	free_funct(twodpath);
 	return ;
 }
 

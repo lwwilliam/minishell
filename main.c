@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 16:16:56 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:11:10 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,13 @@ void	input_handle(t_minihell *mini)
 	char	*t;
 	char	*test;
 
-	t = readline("\033[0;32mMinishell$ \033[0m");
-	add_history(t);
-	if (!t)
+	mini->yes = readline("\033[0;32mMinishell$ \033[0m");
+	add_history(mini->yes);
+	if (!mini->yes)
+		end(mini, 1);
+	if (!check_open_quotes(mini->yes))
 	{
-		end(mini);
-	}
-	if (!check_open_quotes(t))
-	{
-		test = expand(t, mini);
+		test = expand(mini->yes, mini);
 		mini->input_arr = lexer(test, mini);
 		free(test);
 	}
@@ -65,49 +63,6 @@ void	signal_handler(int num)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-}
-
-void	command_handle(t_minihell *mini)
-{
-	if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "env", 4))
-		print_env(mini->env_ll);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "pwd", 4))
-		get_pwd();
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "cd", 3))
-		change_dir(mini);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "unset", 6))
-		unset(mini);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "export", 7))
-		export(mini);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "echo", 7))
-		echo(mini);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "exit", 5))
-		end(mini);
-	// else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "ls", 3))
-	// 	list_dir(mini);
-	// else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "cat", 4))
-	// 	test(mini);
-	else if (mini->input_arr && mini->input_arr[0])
-		printf("Minishell: %s: command not found\n", mini->input_arr[0]);
-}
-
-int	builtin_check(t_minihell *mini)
-{
-	if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "env", 4))
-		return (1);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "pwd", 4))
-		return (1);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "cd", 3))
-		return (1);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "unset", 6))
-		return (1);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "export", 7))
-		return (1);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "echo", 7))
-		return (1);
-	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "exit", 5))
-		return (1);
-	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -134,7 +89,7 @@ int	main(int ac, char **av, char **envp)
 		if (builtin == 1)
 			command_handle(&mini);
 		else
-			test(&mini);
+			not_builtin(&mini);
 		free_funct(mini.input_arr);
 	}
 }

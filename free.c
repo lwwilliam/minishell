@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:23:59 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 16:17:06 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:05:32 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@ void	freelist(t_env **env)
 	*env = NULL;
 }
 
-void	end(t_minihell *mini)
+void	end(t_minihell *mini, int print)
 {
 	rl_clear_history();
 	freelist(&mini->env_ll);
-	printf("exit\n");
-	system("leaks Minishell");
+	if (print == 1)
+	{
+		printf("exit\n");
+		system("leaks Minishell");
+	}
 	exit(0);
 }
 

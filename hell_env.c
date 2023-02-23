@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/22 16:46:16 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:25:08 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_env	*env_init(char **in)
 
 void	print_env(t_env *env_ll)
 {
-	printf("HELLO\n");
 	while (env_ll != NULL)
 	{
 		if (env_ll->print == 0)
