@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 19:20:33 by wting            ###   ########.fr       */
+/*   Updated: 2023/02/23 21:34:09 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	input_handle(t_minihell *mini)
 	if (!check_open_quotes(mini->yes))
 	{
 		test = expand(mini->yes, mini);
+		t = seperate(test, mini);
 		mini->input_arr = lexer(test, mini);
 		free(test);
 	}

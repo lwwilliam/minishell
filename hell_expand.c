@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:03:25 by wting             #+#    #+#             */
-/*   Updated: 2023/02/23 19:57:02 by wting            ###   ########.fr       */
+/*   Updated: 2023/02/23 21:12:28 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	exp_dollar(int *i, int *count, char **ret, t_minihell *mini)
 	else if (str[*i] == '$' && str[*i + 1] && str[*i + 1] != ' ')
 	{
 		tmp = expand_helper(*ret, mini);
-		free (ret);
+		free (*ret);
 		*ret = ft_strdup(tmp);
 		free (tmp);
 		++*count;
@@ -38,6 +38,7 @@ char	*expand(char *str, t_minihell *mini)
 	int		i;
 	char	*ret;
 	int		count;
+	char	*tmp;
 
 	ret = NULL;
 	count = 0;
