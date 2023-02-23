@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:03:25 by wting             #+#    #+#             */
-/*   Updated: 2023/02/23 19:48:44 by wting            ###   ########.fr       */
+/*   Updated: 2023/02/23 19:57:02 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*expand(char *str, t_minihell *mini)
 	int		i;
 	char	*ret;
 	int		count;
-	char	*tmp;
 
 	ret = NULL;
 	count = 0;

@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:39 by wting             #+#    #+#             */
-/*   Updated: 2023/02/23 17:17:57 by wting            ###   ########.fr       */
+/*   Updated: 2023/02/23 20:11:22 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	word_count_helper(char **str)
 		while (**str && **str != '\'')
 			++*str;
 	}
-	++*str;
+	else
+		++*str;
 }
 
 int	word_count(char *str)
