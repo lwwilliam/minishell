@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:42 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 21:10:57 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:18:26 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ void	command_handle(t_minihell *mini)
 		echo(mini);
 	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "exit", 5))
 		end(mini, 1);
-	// else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "ls", 3))
-	// 	list_dir(mini);
-	// else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "cat", 4))
-	// 	test(mini);
 	else if (mini->input_arr && mini->input_arr[0])
 		printf("Minishell: %s: command not found\n", mini->input_arr[0]);
 }

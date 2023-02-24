@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 21:40:26 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:18:31 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ char	*path_array(t_minihell *mini, char *from_env)
 	int		x;
 
 	x = 0;
-	command = NULL;
+	command = ft_strdup(mini->input_arr[0]);
 	twodpath = ft_split(from_env, ':');
 	while (twodpath[x])
 	{
 		if (list_dir(mini, twodpath[x]) == 1)
 		{
+			free(command);
 			command = ft_strjoin(twodpath[x], "/");
 			command = strjoin_helper(command, mini->input_arr[0], 1, 0);
 			break ;
@@ -63,30 +64,47 @@ char	*path_array(t_minihell *mini, char *from_env)
 	return (command);
 }
 
+char	**command_make(t_minihell *mini)
+{
+	char	**exec;
+	char	*command;
+	int		x;
+	int		row;
+
+	x = 0;
+	row = 0;
+	while (mini->input_arr[row++])
+		;
+	command = path_array(mini, get_env(mini->env_ll, "PATH"));
+	exec = malloc(sizeof(char *) * row);
+	exec[x] = ft_substr(command, 0, ft_strlen(command));
+	while (mini->input_arr[++x])
+	{
+		exec[x] = ft_substr(mini->input_arr[x], 0,
+				ft_strlen(mini->input_arr[x]));
+	}
+	exec[x] = NULL;
+	free(command);
+	return (exec);
+}
+
 void	not_builtin(t_minihell *mini)
 {
-	char	*command;
-	char	*exec[5];
+	char	**commands;
 	pid_t	pid;
 
-	command = path_array(mini, get_env(mini->env_ll, "PATH"));
-	exec[0] = command;
-	exec[1] = mini->input_arr[1];
-	exec[2] = mini->input_arr[2];
-	exec[3] = mini->input_arr[3];
+	commands = command_make(mini);
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(exec[0], exec, NULL) == -1)
+		if (execve(commands[0], commands, NULL) == -1)
 		{
 			printf("Minishell: %s: command not found\n", mini->input_arr[0]);
-			free(command);
 			end(mini, 0);
 		}
 	}
 	else
 		waitpid(-1, NULL, 0);
-	free(command);
+	free_funct(commands);
 	return ;
 }
-

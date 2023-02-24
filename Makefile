@@ -8,7 +8,7 @@ CC = gcc
 
 INC :=  -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include
 
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 10:17:08 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/24 14:07:48 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	check_exist(t_env *env_ll, char *key, char *value)
 			free(env_ll->value);
 			free(key);
 			env_ll->value = value;
+			env_ll->print = 0;
 			return (1);
 		}
 		env_ll = env_ll->next;

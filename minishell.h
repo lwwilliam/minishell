@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 21:19:46 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/24 14:00:48 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 # include <dirent.h>
 # include <sys/types.h> 
 # include <sys/wait.h> 
-
-# define VALID "not a valid identifier"
 
 //link_list for env
 typedef struct s_env
@@ -83,7 +81,6 @@ int		unset(t_minihell *mini);
 int		export(t_minihell *mini);
 int		export_error(char *in, char *key, char *value);
 int		check_exist(t_env *env_ll, char *key, char *value);
-
 
 //echo
 void	echo(t_minihell *mini);

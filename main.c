@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 21:11:10 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/24 14:02:07 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	check_open_quotes(char *str)
 
 void	input_handle(t_minihell *mini)
 {
-	char	*t;
 	char	*test;
 
 	mini->yes = readline("\033[0;32mMinishell$ \033[0m");
