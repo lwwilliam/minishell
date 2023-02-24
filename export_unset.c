@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/24 14:07:48 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:31:35 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	export(t_minihell *mini)
 		value = ft_substr(mini->input_arr[x], key_len(mini->input_arr[x]) + 1,
 				ft_strlen(mini->input_arr[x]) - key_len(mini->input_arr[x]));
 		err = check_exist(mini->env_ll, key, value);
-		if (ft_isdigit(key[0]))
+		if (!ft_isalpha(key[0]))
 			err = export_error(mini->input_arr[x], key, value);
 		if (err == 0)
 			add_node_end(mini->env_ll, key, value, yes_no);
