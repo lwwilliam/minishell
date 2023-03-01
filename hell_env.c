@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 20:25:08 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:23:42 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_env(t_env *env_ll, char *what)
 {
 	char	*tmp;
 
-	tmp = "(null)";
+	tmp = "";
 	while (env_ll != NULL)
 	{
 		if (!ft_strncmp(env_ll->key, what, ft_strlen(what)))
