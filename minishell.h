@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/01 12:32:50 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:41:27 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ char	*expand_helper(char *str, t_minihell *mini);
 // void	list_dir(t_minihell *mini);
 void	not_builtin(t_minihell *mini);
 
-void	reading(t_minihell *mini);
+// void	reading(t_minihell *mini);
+int		heredoc(t_minihell *mini);
+int		heredoc_check(t_minihell *mini);
 
 #endif

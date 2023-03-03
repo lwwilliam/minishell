@@ -2,13 +2,13 @@ NAME = minishell.a
 
 SRC = main.c hell_env.c directory.c hell_lexer.c hell_lexer2.c \
 		str_ll.c free.c export_unset.c echo.c execve.c hell_expand.c \
-		built_in.c
+		built_in.c heredoc.c
 
 CC = gcc
 
 INC :=  -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include
 
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 

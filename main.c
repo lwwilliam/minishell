@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/01 18:34:13 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:32:34 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ int	main(int ac, char **av, char **envp)
 		if (builtin == 1)
 			command_handle(&mini);
 		else
-			not_builtin(&mini);
+		{
+			if (heredoc(&mini) == 0)
+				not_builtin(&mini);
+		}
 		free_funct(mini.input_arr);
 	}
 }
