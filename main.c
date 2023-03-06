@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/03 18:32:34 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:45:34 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_open_quotes(char *str)
 	return (0);
 }
 
-void	input_handle(t_minihell *mini)
+int	input_handle(t_minihell *mini)
 {
 	char	*test;
 
@@ -47,10 +47,14 @@ void	input_handle(t_minihell *mini)
 		free(test);
 	}
 	else
-	{	
+	{
 		mini->input_arr = NULL;
-		printf("syntax erriororororo\n");
+		printf("Syntax error\n");
+		free_funct(mini->input_arr);
+		free(mini->yes);
+		return (1);
 	}
+	return (0);
 }
 
 void	signal_handler(int num)
@@ -64,34 +68,41 @@ void	signal_handler(int num)
 	}
 }
 
+void	run(t_minihell *mini)
+{
+	int	builtin;
+
+	builtin = 0;
+	builtin = builtin_check(mini);
+	if (builtin == 1)
+		command_handle(mini);
+	else
+	{
+		if (heredoc(mini) == 0)
+			not_builtin(mini);
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_minihell		mini;
-	int				builtin;
 
 	(void)ac;
 	(void)av;
-	builtin = 0;
 	mini.env_ll = env_init(envp);
 	term();
 	while (1)
 	{
 		signal(SIGINT, signal_handler);
 		signal(SIGQUIT, SIG_IGN);
-		input_handle(&mini);
+		if (input_handle(&mini) == 1)
+			continue ;
 		if (mini.input_arr[0] == 0)
 		{
 			free_funct(mini.input_arr);
 			continue ;
 		}
-		builtin = builtin_check(&mini);
-		if (builtin == 1)
-			command_handle(&mini);
-		else
-		{
-			if (heredoc(&mini) == 0)
-				not_builtin(&mini);
-		}
+		run(&mini);
 		free_funct(mini.input_arr);
 	}
 }

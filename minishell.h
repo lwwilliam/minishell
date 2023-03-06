@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/03 17:41:27 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:44:17 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	command_handle(t_minihell *mini);
 int		builtin_check(t_minihell *mini);
 
 //input handle (not done)
-void	input_handle(t_minihell *mini);
+int		input_handle(t_minihell *mini);
 
 //env handle
 t_env	*env_init(char **in);
@@ -105,6 +105,7 @@ char	*expand_helper(char *str, t_minihell *mini);
 
 //list diretory is not required
 // void	list_dir(t_minihell *mini);
+// void	not_builtin(t_minihell *mini, char **envp);
 void	not_builtin(t_minihell *mini);
 
 // void	reading(t_minihell *mini);

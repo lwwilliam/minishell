@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/01 18:23:42 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:55:43 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_env(t_env *env_ll, char *what)
 	tmp = "";
 	while (env_ll != NULL)
 	{
-		if (!ft_strncmp(env_ll->key, what, ft_strlen(what)))
+		if (!ft_strncmp(env_ll->key, what, ft_strlen(what) + 1))
 		{
 			tmp = env_ll->value;
 			break ;
