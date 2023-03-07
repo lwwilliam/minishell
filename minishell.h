@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/06 19:44:17 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:41:17 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,8 @@ void	not_builtin(t_minihell *mini);
 // void	reading(t_minihell *mini);
 int		heredoc(t_minihell *mini);
 int		heredoc_check(t_minihell *mini);
+
+void	test(t_minihell *mini, char **env);
+char	**env_2d(t_env *env);
 
 #endif

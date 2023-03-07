@@ -4,7 +4,7 @@ NAME = minishell.a
 
 SRC = main.c hell_env.c directory.c hell_lexer.c hell_lexer2.c \
 		str_ll.c free.c export_unset.c echo.c execve.c hell_expand.c \
-		built_in.c heredoc.c
+		built_in.c heredoc.c env_2d.c
 
 CC = gcc
 

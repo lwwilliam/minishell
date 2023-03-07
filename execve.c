@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/06 19:44:28 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:35:50 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,14 @@ void	not_builtin(t_minihell *mini)
 {
 	char	**commands;
 	pid_t	pid;
+	char	**env;
 
+	env = env_2d(mini->env_ll);
 	commands = command_make(mini);
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(commands[0], commands, NULL) == -1)
+		if (execve(commands[0], commands, env) == -1)
 		{
 			printf("Minishell: %s: command not found\n", mini->input_arr[0]);
 			end(mini, 0);
@@ -106,5 +108,6 @@ void	not_builtin(t_minihell *mini)
 	else
 		waitpid(-1, NULL, 0);
 	free_funct(commands);
+	free_funct(env);
 	return ;
 }
