@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/06 19:11:55 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/07 13:26:55 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,27 +77,6 @@ void	export_equal(t_minihell *mini, t_env *env)
 		x++;
 	}
 }
-
-// void	fuckin_funct(char *input, t_env *env_ll, char *key, char *value)
-// {
-// 	int	equal_or_no;
-// 	int	check;
-
-// 	check = 0;
-// 	equal_or_no = 0;
-// 	// printf("key : (%s) value : (%s)\n", key, value);
-// 	if (!ft_strchr(input, '='))
-// 		equal_or_no = 1;
-// 	if (equal_or_no == 1)
-// 		check = check_exist(env_ll, key);
-// 	printf("%d\n", equal_or_no);
-// 	printf("%d\n", check);
-// 	if (equal_or_no == 1 && check == 0)
-// 	{
-// 		printf("ENTER\n");
-// 		add_node_end(env_ll, key, value, 1);
-// 	}
-// }
 
 int	export(t_minihell *mini)
 {

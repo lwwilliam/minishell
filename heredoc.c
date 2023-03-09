@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/07 13:03:31 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:44:49 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,6 @@ int	heredoc_check(t_minihell *mini)
 	}
 	return (0);
 }
-
-// void	test(t_minihell *mini)
-// {
-// 	pid_t	pid;
-// 	char	*command[3];
-
-// 	command[0] = "/bin/cat";
-// 	command[1] = NULL;
-// 	pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		execve(command[0], command, NULL);
-// 	}
-// 	else
-// 		waitpid(-1, NULL, 0);
-// }
 
 int	heredoc(t_minihell *mini)
 {
@@ -64,22 +48,59 @@ int	heredoc(t_minihell *mini)
 			free(long_str);
 		long_str = strjoin_helper(long_str1, "\n", 1, 0);
 	}
+	redirect_check(mini);
 	return (0);
 }
 
-// int	pipe_check(t_minihell *mini)
-// {
-// 	int	x;
+int	redirect_check(t_minihell *mini)
+{
+	int	x;
 
-// 	x = 0;
-// 	while (mini->input_arr[x])
-// 	{
-// 		printf("%s\n", mini->input_arr[x]);
-// 		if (!ft_strncmp(mini->input_arr[x++], "|", 2))
-// 			return (x);
-// 	}
-// 	return (0);
-// }
+	x = 0;
+	while (mini->input_arr[x])
+	{
+		if (!ft_strncmp(mini->input_arr[x], ">", 2))
+			right_redirect(mini, x);
+		else if (!ft_strncmp(mini->input_arr[x], ">>", 3))
+			right_append(mini, x);
+		x++;
+	}
+	return (0);
+}
+
+void	right_redirect(t_minihell *mini, int x)
+{
+	int		fd;
+	char	*tmp_msg;
+
+	tmp_msg = ft_strdup(mini->input_arr[0]);
+	fd = open(mini->input_arr[x + 1], O_CREAT | O_WRONLY, 0644);
+	if (fd < 0)
+	{
+		printf("error\n");
+		return ;
+	}
+	write(fd, tmp_msg, ft_strlen(tmp_msg));
+	close(fd);
+	return ;
+}
+
+void	right_append(t_minihell *mini, int x)
+{
+	int		fd;
+	char	*tmp_msg;
+
+	tmp_msg = ft_strdup(mini->input_arr[0]);
+	fd = open(mini->input_arr[x + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (fd < 0)
+	{
+		printf("error\n");
+		return ;
+	}
+	write(fd, tmp_msg, ft_strlen(tmp_msg));
+	close(fd);
+	return ;
+}
 
 // int	ft_exe(char **argv, int i, int tmp_fd, char **environment_variables)
 // {

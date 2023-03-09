@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/07 11:41:17 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:47:00 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_minihell
 	char	**input_arr;
 	char	*yes;
 	t_env	*env_ll;
+	// char	*tmp;
 }	t_minihell;
 
 void	term(void);
@@ -112,7 +113,10 @@ void	not_builtin(t_minihell *mini);
 int		heredoc(t_minihell *mini);
 int		heredoc_check(t_minihell *mini);
 
-void	test(t_minihell *mini, char **env);
 char	**env_2d(t_env *env);
+
+int		redirect_check(t_minihell *mini);
+void	right_redirect(t_minihell *mini, int x);
+void	right_append(t_minihell *mini, int x);
 
 #endif
