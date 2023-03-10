@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/09 18:26:00 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:04:55 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ char	**command_make(t_minihell *mini)
 	while (mini->input_arr[++x])
 	{
 		if (!ft_strncmp(mini->input_arr[x], ">", 2)
-			|| !ft_strncmp(mini->input_arr[x], ">>", 3))
+			|| !ft_strncmp(mini->input_arr[x], ">>", 3)
+			|| !ft_strncmp(mini->input_arr[x], "<<", 3))
 			break ;
 		exec[x] = ft_substr(mini->input_arr[x], 0,
 				ft_strlen(mini->input_arr[x]));

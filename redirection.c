@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:29:02 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/09 18:29:16 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:03:36 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	redirect_check(t_minihell *mini)
 void	right_redirect(t_minihell *mini, int x)
 {
 	int		fd;
-	char	*tmp_msg;
+	// char	*tmp_msg;
 
-	tmp_msg = ft_strdup(mini->input_arr[0]);
+	// tmp_msg = ft_strdup(mini->input_arr[0]);
 	fd = open(mini->input_arr[x + 1], O_CREAT | O_WRONLY, 0644);
 	if (fd < 0)
 	{
@@ -48,9 +48,9 @@ void	right_redirect(t_minihell *mini, int x)
 void	right_append(t_minihell *mini, int x)
 {
 	int		fd;
-	char	*tmp_msg;
+	// char	*tmp_msg;
 
-	tmp_msg = ft_strdup(mini->input_arr[0]);
+	// tmp_msg = ft_strdup(mini->input_arr[0]);
 	fd = open(mini->input_arr[x + 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/07 11:52:10 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:15:40 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	run(t_minihell *mini)
 		command_handle(mini);
 	else
 	{
-		if (heredoc(mini) == 0)
-			not_builtin(mini);
+		if (heredoc_check(mini) == 0)
+				not_builtin(mini);
 	}
 }
 

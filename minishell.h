@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/09 18:27:44 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:06:20 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*expand_helper(char *str, t_minihell *mini);
 void	not_builtin(t_minihell *mini);
 
 // void	reading(t_minihell *mini);
-int		heredoc(t_minihell *mini);
+int		heredoc(t_minihell *mini, int x);
 int		heredoc_check(t_minihell *mini);
 
 //env linked list to 2d array
