@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/13 17:37:50 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/14 01:22:11 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ int	heredoc_check(t_minihell *mini, int test)
 		if (!ft_strncmp(mini->input_arr[x], "<<", 3) && x == 0)
 		{
 			if (heredoc(mini, x) == 1)
-			{
-				dup2(1, 0);
 				return (1);
-			}
 		}
 		if (!ft_strncmp(mini->input_arr[x], "<<", 3) && !mini->input_arr[x + 1])
 		{
@@ -62,10 +59,7 @@ int	heredoc(t_minihell *mini, int x)
 				long_str = ft_calloc(1, sizeof(char));
 			else
 				long_str[ft_strlen(long_str)] = '\0';
-			// mini->tmp = long_str;
-			// dup2(1, 0);
 			printf("%s", long_str);
-			// free(long_str);
 			free(here_arg);
 			if (x == 0)
 				return (1);

@@ -38,3 +38,5 @@ f:
 	rm -r Minishell.dSYM
 
 .PHONY :libft $(NAME)
+
+#echo "dasdsa asdsa" >> t have some issues

@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/14 00:47:07 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/14 01:15:19 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	not_builtin(t_minihell *mini , char **commands)
 	}
 	else
 		waitpid(pid, NULL, 0);
-	free_funct(commands);
 	free_funct(env);
 	return ;
 }
