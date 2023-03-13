@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/13 12:09:44 by lwilliam          #+#    #+#             */
+/*   Updated: 2023/03/13 18:33:58 by lwilliam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -33,7 +44,7 @@ typedef struct s_minihell
 	char	**input_arr;
 	char	*yes;
 	t_env	*env_ll;
-	// char	*tmp;
+	char	*tmp;
 }	t_minihell;
 
 void	term(void);
@@ -100,14 +111,14 @@ void	not_builtin(t_minihell *mini);
 
 // void	reading(t_minihell *mini);
 int		heredoc(t_minihell *mini, int x);
-int		heredoc_check(t_minihell *mini);
+int		heredoc_check(t_minihell *mini, int test);
 
 //env linked list to 2d array
 char	**env_2d(t_env *env);
 
 //redirections
-int		redirect_check(t_minihell *mini);
-void	right_redirect(t_minihell *mini, int x);
-void	right_append(t_minihell *mini, int x);
+int		redirect_check(t_minihell *mini, char *valid);
+// void	right_redirect(t_minihell *mini, int x);
+// void	right_append(t_minihell *mini, int x);
 
 #endif

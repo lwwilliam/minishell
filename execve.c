@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/10 23:52:59 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:29:46 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	**command_make(t_minihell *mini)
 	{
 		if (!ft_strncmp(mini->input_arr[x], ">", 2)
 			|| !ft_strncmp(mini->input_arr[x], ">>", 3)
+			|| !ft_strncmp(mini->input_arr[x], "<", 2)
 			|| !ft_strncmp(mini->input_arr[x], "<<", 3))
 			break ;
 		exec[x] = ft_substr(mini->input_arr[x], 0,
@@ -91,6 +92,21 @@ char	**command_make(t_minihell *mini)
 	free(command);
 	return (exec);
 }
+
+
+// void	here_check(t_minihell *mini)
+// {
+// 	int	x;
+
+// 	x = 0;
+// 	while (mini->input_arr[x])
+// 	{
+// 		if (!ft_strncmp(mini->input_arr[x], "<<", 3))
+// 			right_append(mini, x);
+// 		x++;
+// 	}
+// 	return (0);
+// }
 
 void	not_builtin(t_minihell *mini)
 {
@@ -103,17 +119,17 @@ void	not_builtin(t_minihell *mini)
 	pid = fork();
 	if (pid == 0)
 	{
-		redirect_check(mini);
+		redirect_check(mini, commands[0]);
+		heredoc_check(mini, 1);
 		if (execve(commands[0], commands, env) == -1)
 		{
 			printf("Minishell: %s: command not found\n", mini->input_arr[0]);
 			end(mini, 0);
 		}
+		printf("test\n");
 	}
 	else
-	{
-		waitpid(-1, NULL, 0);
-	}
+		waitpid(pid, NULL, 0);
 	free_funct(commands);
 	free_funct(env);
 	return ;

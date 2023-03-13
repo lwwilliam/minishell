@@ -6,25 +6,37 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/10 23:53:38 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:37:50 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	heredoc_check(t_minihell *mini)
+
+//if test == 1 : run heredoc
+//if test == 0 : dont run heredoc unless the first input is << 
+//e.g (<< t) 
+int	heredoc_check(t_minihell *mini, int test)
 {
 	int	x;
 
 	x = 0;
 	while (mini->input_arr[x])
 	{
+		if (!ft_strncmp(mini->input_arr[x], "<<", 3) && x == 0)
+		{
+			if (heredoc(mini, x) == 1)
+			{
+				dup2(1, 0);
+				return (1);
+			}
+		}
 		if (!ft_strncmp(mini->input_arr[x], "<<", 3) && !mini->input_arr[x + 1])
 		{
 			printf("Minishell: syntax error near unexpected token `newline'\n");
 			return (1);
 		}
-		else if (!ft_strncmp(mini->input_arr[x], "<<", 3))
+		else if (!ft_strncmp(mini->input_arr[x], "<<", 3) && test == 1)
 			if (heredoc(mini, x) == 1)
 				return (1);
 		x++;
@@ -38,7 +50,7 @@ int	heredoc(t_minihell *mini, int x)
 	char	*long_str;
 	char	*long_str1;
 	char	*here_arg;
-	
+
 	long_str = "";
 	key_word = mini->input_arr[x + 1];
 	while (1)
@@ -48,9 +60,13 @@ int	heredoc(t_minihell *mini, int x)
 		{
 			if (ft_strlen(long_str) == 0)
 				long_str = ft_calloc(1, sizeof(char));
-			printf("args:\n%s", long_str);
+			else
+				long_str[ft_strlen(long_str)] = '\0';
+			// mini->tmp = long_str;
+			// dup2(1, 0);
+			printf("%s", long_str);
+			// free(long_str);
 			free(here_arg);
-			free(long_str);
 			if (x == 0)
 				return (1);
 			else
@@ -79,7 +95,7 @@ int	heredoc(t_minihell *mini, int x)
 // 	while (check_num == 1)
 // 	{
 // 		here_arg = readline("> ");
-// 		if (!ft_strncmp(here_arg, mini->input_arr[x + 1], \
+// 		if (!ft_strncmp(here_arg, mini->input_arr[x + 1], 
 // 			ft_strlen(mini->input_arr[x + 1]) + 1))
 // 		{
 // 			long_str[ft_strlen(long_str)] = '\0';
