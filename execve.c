@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/13 18:29:46 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:47:07 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,14 @@ char	**command_make(t_minihell *mini)
 	char	**exec;
 	char	*command;
 	int		x;
-	int		row;
 
 	x = 0;
-	row = 0;
-	while (mini->input_arr[row++])
+	while (mini->input_arr[x++])
 		;
 	command = path_array(mini, get_env(mini->env_ll, "PATH"));
-	exec = malloc(sizeof(char *) * row);
-	exec[x] = ft_substr(command, 0, ft_strlen(command));
+	exec = ft_calloc(x, sizeof(char *));
+	x = 0;
+	exec[x] = ft_strdup(command);
 	while (mini->input_arr[++x])
 	{
 		if (!ft_strncmp(mini->input_arr[x], ">", 2)
@@ -85,48 +84,27 @@ char	**command_make(t_minihell *mini)
 			|| !ft_strncmp(mini->input_arr[x], "<", 2)
 			|| !ft_strncmp(mini->input_arr[x], "<<", 3))
 			break ;
-		exec[x] = ft_substr(mini->input_arr[x], 0,
-				ft_strlen(mini->input_arr[x]));
+		exec[x] = ft_strdup(mini->input_arr[x]);
 	}
-	exec[x] = NULL;
 	free(command);
 	return (exec);
 }
 
-
-// void	here_check(t_minihell *mini)
-// {
-// 	int	x;
-
-// 	x = 0;
-// 	while (mini->input_arr[x])
-// 	{
-// 		if (!ft_strncmp(mini->input_arr[x], "<<", 3))
-// 			right_append(mini, x);
-// 		x++;
-// 	}
-// 	return (0);
-// }
-
-void	not_builtin(t_minihell *mini)
+void	not_builtin(t_minihell *mini , char **commands)
 {
-	char	**commands;
 	pid_t	pid;
 	char	**env;
 
 	env = env_2d(mini->env_ll);
-	commands = command_make(mini);
 	pid = fork();
 	if (pid == 0)
 	{
-		redirect_check(mini, commands[0]);
 		heredoc_check(mini, 1);
 		if (execve(commands[0], commands, env) == -1)
 		{
 			printf("Minishell: %s: command not found\n", mini->input_arr[0]);
 			end(mini, 0);
 		}
-		printf("test\n");
 	}
 	else
 		waitpid(pid, NULL, 0);

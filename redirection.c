@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:29:02 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/13 18:34:14 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:28:33 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ void	right_redirect(t_minihell *mini, int x, char *valid)
 {
 	int		fd;
 
-	unlink(mini->input_arr[x + 1]);
-	fd = open(mini->input_arr[x + 1], O_CREAT | O_WRONLY, 0644);
+	fd = open(mini->input_arr[x + 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		printf("Minishell: syntax error near unexpected token `newline'\n");
 		return ;
 	}
-	if (access(valid, X_OK) == 0)
+	if (access(valid, X_OK) == 0 || builtin_check(mini) == 1)
 		dup2(fd, 1);
 	close(fd);
 	return ;
@@ -39,7 +38,7 @@ void	right_append(t_minihell *mini, int x, char *valid)
 		printf("Minishell: syntax error near unexpected token `newline'\n");
 		return ;
 	}
-	if (access(valid, X_OK) == 0)
+	if (access(valid, X_OK) == 0 || builtin_check(mini) == 1)
 		dup2(fd, 1);
 	close(fd);
 	return ;
@@ -56,7 +55,7 @@ void	left_redirect(t_minihell *mini, int x, char *valid)
 			mini->input_arr[x + 1]);
 		return ;
 	}
-	if (access(valid, X_OK) == 0)
+	if (access(valid, X_OK) == 0 || builtin_check(mini) == 1)
 		dup2(fd, 0);
 	close(fd);
 	return ;
@@ -79,13 +78,3 @@ int	redirect_check(t_minihell *mini, char *valid)
 	}
 	return (0);
 }
-
-// cat
-// <
-// O_DIRECTORY 
-// <
-// ..
-// <
-// main.c
-
-// ls

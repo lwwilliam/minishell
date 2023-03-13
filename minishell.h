@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:09:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/13 18:33:58 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:19:57 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,8 @@ int		env_name_len(char *str, int bool);
 char	*expand_helper(char *str, t_minihell *mini);
 
 //list diretory is not required
-// void	list_dir(t_minihell *mini);
-// void	not_builtin(t_minihell *mini, char **envp);
-void	not_builtin(t_minihell *mini);
+void	not_builtin(t_minihell *mini , char **commands);
+char	**command_make(t_minihell *mini);
 
 // void	reading(t_minihell *mini);
 int		heredoc(t_minihell *mini, int x);
@@ -118,7 +117,11 @@ char	**env_2d(t_env *env);
 
 //redirections
 int		redirect_check(t_minihell *mini, char *valid);
-// void	right_redirect(t_minihell *mini, int x);
-// void	right_append(t_minihell *mini, int x);
+// "<"
+void	left_redirect(t_minihell *mini, int x, char *valid);
+//">"
+void	right_redirect(t_minihell *mini, int x, char *valid);
+// ">>"
+void	right_append(t_minihell *mini, int x, char *valid);
 
 #endif

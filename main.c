@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/13 13:42:18 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/14 00:27:09 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,23 @@ void	signal_handler(int num)
 
 void	run(t_minihell *mini)
 {
-	int	builtin;
+	int		builtin;
+	int		saved_fd;
+	char	**commands;
 
-	builtin = 0;
 	builtin = builtin_check(mini);
+	saved_fd = dup(1);
+	commands = command_make(mini);
+	redirect_check(mini, commands[0]);
 	if (builtin == 1)
 		command_handle(mini);
 	else
 	{
 		if (heredoc_check(mini, 0) == 0)
-			not_builtin(mini);
+			not_builtin(mini, commands);
 	}
+	dup2(saved_fd, 1);
+	close(saved_fd);
 }
 
 int	main(int ac, char **av, char **envp)
