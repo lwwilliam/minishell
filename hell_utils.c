@@ -6,15 +6,15 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:59:59 by wting             #+#    #+#             */
-/*   Updated: 2023/02/23 21:07:11 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/07 16:21:05 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void str_lower(char **str)
+void	str_lower(char **str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (*str[++i])

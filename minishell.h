@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/02/23 19:18:04 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/10 17:52:49 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,10 @@ char	*strjoin_helper(char *str1, char *str2, int free1, int free2);
 char	*expand(char *str, t_minihell *mini);
 int		env_name_len(char *str, int bool);
 char	*expand_helper(char *str, t_minihell *mini);
+
+//seperate
+int		count_spaces(char *str);
+char	*seperate(char *str);
+int		find_set(char c);
 
 #endif
