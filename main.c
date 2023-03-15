@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/14 01:19:48 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:58:32 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,30 @@ void	run(t_minihell *mini)
 	int		builtin;
 	int		saved_fd;
 	char	**commands;
+	char	*test[3];
 
 	builtin = builtin_check(mini);
 	saved_fd = dup(1);
 	commands = command_make(mini);
+	test[0] = "/bin/ls";
+	// test[1] = "directory.c";
+	test[1] = NULL;
 	redirect_check(mini, commands[0]);
-	if (builtin == 1)
-		command_handle(mini);
+	if (fork() == 0)
+		 execve(test[0], test, NULL);
 	else
-	{
-		if (heredoc_check(mini, 0) == 0)
-			not_builtin(mini, commands);
-	}
-	dup2(saved_fd, 1);
+		waitpid(-1, NULL, 0);
+	pipe_check(mini, saved_fd);
 	close(saved_fd);
+	// if (builtin == 1)
+	// 	command_handle(mini);
+	// else
+	// {
+	// 	if (heredoc_check(mini, 0) == 0)
+	// 		not_builtin(mini, commands);
+	// }
+	// dup2(saved_fd, 1);
+	// close(saved_fd);
 }
 
 int	main(int ac, char **av, char **envp)

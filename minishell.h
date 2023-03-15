@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:09:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/14 00:19:57 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:54:37 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,8 @@ void	left_redirect(t_minihell *mini, int x, char *valid);
 void	right_redirect(t_minihell *mini, int x, char *valid);
 // ">>"
 void	right_append(t_minihell *mini, int x, char *valid);
+
+//pipe test
+int	pipe_check(t_minihell *mini, int tmp_fd);
 
 #endif
