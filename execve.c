@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/14 01:15:19 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:30:07 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	**command_make(t_minihell *mini)
 	return (exec);
 }
 
-void	not_builtin(t_minihell *mini , char **commands)
+void	not_builtin(t_minihell *mini, char **commands)
 {
 	pid_t	pid;
 	char	**env;

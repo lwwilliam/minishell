@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/15 20:02:05 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:31:03 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	write_error(char *string, char *argv)
 	while (string && *string)
 		write(2, string++, 1);
 	if (argv)
-		while(*argv)
+		while (*argv)
 			write(2, argv++, 1);
 	write(2, "\n", 1);
 	return (1);
@@ -34,8 +34,8 @@ int	ft_exe(char **argv, int i, int temporary_file_descriptor)
 
 void	piping(t_minihell *mini, int tmp_fd, int x)
 {
-	int fd[2];
-	
+	int	fd[2];
+
 	pipe(fd);
 	if (fork() == 0)
 	{
@@ -53,7 +53,6 @@ void	piping(t_minihell *mini, int tmp_fd, int x)
 	}
 }
 
-
 int	pipe_check(t_minihell *mini, int tmp_fd)
 {
 	int	x;
@@ -67,7 +66,6 @@ int	pipe_check(t_minihell *mini, int tmp_fd)
 	}
 	return (0);
 }
-
 
 // else if(i != 0 && strcmp(argv[i], "|") == 0)
 // {

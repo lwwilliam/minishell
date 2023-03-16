@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:09:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/15 18:54:37 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:31:12 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		env_name_len(char *str, int bool);
 char	*expand_helper(char *str, t_minihell *mini);
 
 //list diretory is not required
-void	not_builtin(t_minihell *mini , char **commands);
+void	not_builtin(t_minihell *mini, char **commands);
 char	**command_make(t_minihell *mini);
 
 // void	reading(t_minihell *mini);
@@ -125,6 +125,6 @@ void	right_redirect(t_minihell *mini, int x, char *valid);
 void	right_append(t_minihell *mini, int x, char *valid);
 
 //pipe test
-int	pipe_check(t_minihell *mini, int tmp_fd);
+int		pipe_check(t_minihell *mini, int tmp_fd);
 
 #endif

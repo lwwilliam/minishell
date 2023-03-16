@@ -6,12 +6,11 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/14 01:22:11 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:29:40 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 //if test == 1 : run heredoc
 //if test == 0 : dont run heredoc unless the first input is << 
