@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:45:39 by wting             #+#    #+#             */
-/*   Updated: 2023/03/16 16:05:04 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:10:18 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,12 @@ void	word_count_helper(char **str)
 		while (**str && **str != '"')
 			++*str;
 	}
-	else if (**str && **str == '\'')
+	if (**str && **str == '\'')
 	{
 		++*str;
 		while (**str && **str != '\'')
 			++*str;
 	}
-	else
 		++*str;
 }
 
