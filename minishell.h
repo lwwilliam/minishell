@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 12:09:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 13:31:12 by lwilliam         ###   ########.fr       */
+/*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
+/*   Updated: 2023/03/16 15:52:53 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		unset(t_minihell *mini);
 int		export(t_minihell *mini);
 int		export_error(char *in, char *key, char *value);
 int		check_exist(t_env *env_ll, char *key, char *value);
+// int		check_exist(t_env *env_ll, char *key, char *value, int yes_no);
 
 //echo
 void	echo(t_minihell *mini);
@@ -126,5 +127,9 @@ void	right_append(t_minihell *mini, int x, char *valid);
 
 //pipe test
 int		pipe_check(t_minihell *mini, int tmp_fd);
+//seperate
+int		count_spaces(char *str);
+char	*seperate(char *str);
+int		find_set(char c);
 
 #endif

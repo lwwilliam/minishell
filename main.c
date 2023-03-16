@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 13:40:02 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:16:27 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	check_open_quotes(char *str)
 
 int	input_handle(t_minihell *mini)
 {
-	char	*test;
+	char	*tmp;
+	char	*tmp2;
 
 	mini->yes = readline("\033[0;32mMinishell$ \033[0m");
 	add_history(mini->yes);
@@ -42,9 +43,11 @@ int	input_handle(t_minihell *mini)
 		end(mini, 1);
 	if (!check_open_quotes(mini->yes))
 	{
-		test = expand(mini->yes, mini);
-		mini->input_arr = lexer(test, mini);
-		free(test);
+		tmp = expand(mini->yes, mini);
+		tmp2 = seperate(tmp);
+		free(tmp);
+		mini->input_arr = lexer(tmp2, mini);
+		free(tmp2);
 	}
 	else
 	{
