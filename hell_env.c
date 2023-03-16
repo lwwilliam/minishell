@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 19:39:40 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:44:28 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env	*env_init(char **in)
 		key_value = ft_split(in[x], '=');
 		env = list_create(key_value[0], key_value[1]);
 		insert(&head, env);
-		free_funct(key_value);
+		free(key_value);
 		tail = env;
 	}
 	while (in[++x])
@@ -34,7 +34,7 @@ t_env	*env_init(char **in)
 		key_value = ft_split(in[x], '=');
 		env = list_create(key_value[0], key_value[1]);
 		insert(&tail->next, env);
-		free_funct(key_value);
+		free(key_value);
 		tail = env;
 	}
 	tail->next = NULL;

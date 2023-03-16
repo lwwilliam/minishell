@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:22:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 19:45:44 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:44:01 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_env	*list_create( char *key, char *value)
 	t_env	*newlist;
 
 	newlist = (t_env *)malloc(sizeof(t_env));
-	newlist->value = ft_strdup(value);
-	newlist->key = ft_strdup(key);
+	newlist->value = value;
+	newlist->key = key;
 	newlist->print = 0;
 	newlist->next = NULL;
 	return (newlist);

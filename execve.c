@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 13:30:07 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:50:15 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	not_builtin(t_minihell *mini, char **commands)
 	pid = fork();
 	if (pid == 0)
 	{
-		heredoc_check(mini, 1);
+		// heredoc_check(mini, 1);
 		if (execve(commands[0], commands, env) == -1)
 		{
 			printf("Minishell: %s: command not found\n", mini->input_arr[0]);
