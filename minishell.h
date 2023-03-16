@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 15:52:53 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:34:52 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,23 @@ typedef struct s_env
 }	t_env;
 //if print == 0 then print
 
+typedef struct s_data
+{
+	char			**cmd;
+	char			*redir;
+	char			*redir_filename;
+	int				fd_in;
+	int				fd_out;
+	struct t_data	*next;
+}	t_data;
+
 typedef struct s_minihell
 {
 	char	**input_arr;
 	char	*yes;
 	t_env	*env_ll;
 	char	*tmp;
+	t_data	*data;
 }	t_minihell;
 
 void	term(void);
@@ -131,5 +142,8 @@ int		pipe_check(t_minihell *mini, int tmp_fd);
 int		count_spaces(char *str);
 char	*seperate(char *str);
 int		find_set(char c);
+
+//error handling
+int		check_valid(char *str);
 
 #endif

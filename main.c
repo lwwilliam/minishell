@@ -3,53 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 18:10:53 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/16 21:20:10 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_open_quotes(char *str)
+void	esl(t_minihell *mini)
 {
-	int	i;
+	char	*tmp;
+	char	*tmp2;
+	
+	tmp = expand(mini->yes, mini);
+	free(mini->yes);
+	tmp2 = seperate(tmp);
+	free(tmp);
+	mini->input_arr = lexer(tmp2, mini);
+	free(tmp2);
+}
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-			while (str[++i] != '\'')
-				if (!str[i])
-					return (1);
-		if (str[i] == '"')
-			while (str[++i] != '"')
-				if (!str[i])
-					return (1);
-		++i;
-	}
-	return (0);
+char **dup_arr(char **command)
+{
+	///duplicates array with redir and pipes removed
+	// while (smtg)
+	// {
+	// 	if (find_set(firs_character_of_smtg))
+	// 	{
+	// 		data->redir = ft_strdup();
+			
+	// 	}
+	// }
+}
+
+t_data *data_create(t_minihell *mini)
+{
+	t_data *data;
+
+	data = (t_data *)malloc(sizeof(t_data));
+	data->cmd = dup_arr(data);
+	data->fd_in = 1;
+	data->fd_out = 0;
+}
+
+void	parse(t_minihell *mini)
+{
+	esl (mini);
+	t_data *head;
+	t_data *tail;
+	head = data_craete(mini);
+	// mini->data = malloc(sizeof(t_data));
+
 }
 
 int	input_handle(t_minihell *mini)
 {
-	char	*tmp;
-	char	*tmp2;
+	
 
 	mini->yes = readline("\033[0;32mMinishell$ \033[0m");
 	add_history(mini->yes);
 	if (!mini->yes)
 		end(mini, 1);
-	if (!check_open_quotes(mini->yes))
-	{
-		tmp = expand(mini->yes, mini);
-		free(mini->yes);
-		tmp2 = seperate(tmp);
-		free(tmp);
-		mini->input_arr = lexer(tmp2, mini);
-		free(tmp2);
-	}
+	if (!check_valid(mini->yes))
+		parse(mini);
 	else
 	{
 		mini->input_arr = NULL;
