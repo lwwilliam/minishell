@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:16:14 by wting             #+#    #+#             */
-/*   Updated: 2023/03/16 19:16:26 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/17 19:33:51 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_open_quotes(char *str)
 	return (0);
 }
 
-int check_pipe(char *str)
+int	check_pipe(char *str)
 {
 	int	i;
 

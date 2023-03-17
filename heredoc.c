@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 13:29:40 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/17 21:10:06 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,35 +72,3 @@ int	heredoc(t_minihell *mini, int x)
 	}
 	return (0);
 }
-
-// int	heredoc(t_minihell *mini, int x)
-// {
-// 	char	*here_arg;
-// 	char	*long_str;
-// 	char	*long_str1;
-// 	char	*key_word;
-// 	int		check_num;
-
-// 	long_str = "";
-// 	check_num = heredoc_check(mini);
-// 	if (check_num == 2)
-// 		return (1);
-// 	while (check_num == 1)
-// 	{
-// 		here_arg = readline("> ");
-// 		if (!ft_strncmp(here_arg, mini->input_arr[x + 1], 
-// 			ft_strlen(mini->input_arr[x + 1]) + 1))
-// 		{
-// 			long_str[ft_strlen(long_str)] = '\0';
-// 			printf("args:\n%s", long_str);
-// 			free(here_arg);
-// 			free(long_str);
-// 			return (1);
-// 		}
-// 		long_str1 = strjoin_helper(long_str, here_arg, 0, 1);
-// 		if (ft_strlen(long_str) > 0)
-// 			free(long_str);
-// 		long_str = strjoin_helper(long_str1, "\n", 1, 0);
-// 	}
-// 	return (0);
-// }

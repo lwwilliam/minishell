@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 19:34:52 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/17 21:38:39 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,17 @@ typedef struct s_env
 typedef struct s_data
 {
 	char			**cmd;
-	char			*redir;
-	char			*redir_filename;
 	int				fd_in;
 	int				fd_out;
-	struct t_data	*next;
+	struct s_data	*next;
 }	t_data;
 
 typedef struct s_minihell
 {
 	char	**input_arr;
 	char	*yes;
-	t_env	*env_ll;
 	char	*tmp;
+	t_env	*env_ll;
 	t_data	*data;
 }	t_minihell;
 
@@ -145,5 +143,13 @@ int		find_set(char c);
 
 //error handling
 int		check_valid(char *str);
+int		check_open_quotes(char *str);
+
+//input linked list functions
+t_data	*lcreate( char **cmd);
+void	input_init(t_data **head, t_data *newnode);
+void	clear_in(t_data **data);
+char	**assign(int len, int x, char **command, t_minihell *mini);
+void	dup_arr(char **command, t_minihell *mini);
 
 #endif
