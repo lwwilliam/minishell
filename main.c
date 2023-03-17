@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/17 00:50:33 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:53:29 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,8 @@ void	run(t_minihell *mini)
 	builtin = builtin_check(mini);
 	fd_in = dup(1);
 	fd_out = dup(0);
-
 	commands = command_make(mini);
 	redirect_check(mini, commands[0]);
-	// char	*test[3];
-	// test[0] = "/bin/ls";
-	// test[1] = "directory.c";
-	// test[1] = NULL;
-	// if (fork() == 0)
-	// 	execve(test[0], test, NULL);
-	// else
-	// 	waitpid(-1, NULL, 0);
-	// pipe_check(mini, saved_fd);
-	// close(saved_fd);
 	if (builtin == 1)
 		command_handle(mini);
 	else
