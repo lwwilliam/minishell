@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/17 21:38:39 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/22 00:29:13 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,15 @@ typedef struct s_env
 typedef struct s_data
 {
 	char			**cmd;
-	int				fd_in;
-	int				fd_out;
+	int				fd[2];
+	pid_t			fork;
 	struct s_data	*next;
 }	t_data;
 
 typedef struct s_minihell
 {
 	char	**input_arr;
+	char	**term_in;
 	char	*yes;
 	char	*tmp;
 	t_env	*env_ll;

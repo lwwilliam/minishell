@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:56:45 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/17 21:38:18 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/22 00:29:23 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ t_data	*lcreate( char **cmd)
 
 	newlist = (t_data *)malloc(sizeof(t_data));
 	newlist->cmd = cmd;
-	newlist->fd_in = 1;
-	newlist->fd_out = 0;
+	pipe(newlist->fd);
 	newlist->next = NULL;
 	return (newlist);
 }

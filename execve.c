@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 13:30:07 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:23:13 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,11 @@ char	**command_make(t_minihell *mini)
 
 void	not_builtin(t_minihell *mini, char **commands)
 {
-	pid_t	pid;
 	char	**env;
 
 	env = env_2d(mini->env_ll);
-	pid = fork();
-	if (pid == 0)
+	mini->data->fork = fork();
+	if (mini->data->fork == 0)
 	{
 		heredoc_check(mini, 1);
 		if (execve(commands[0], commands, env) == -1)
@@ -107,7 +106,7 @@ void	not_builtin(t_minihell *mini, char **commands)
 		}
 	}
 	else
-		waitpid(pid, NULL, 0);
+		waitpid(mini->data->fork, NULL, 0);
 	free_funct(env);
 	return ;
 }
