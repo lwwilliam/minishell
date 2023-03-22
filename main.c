@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/22 00:30:03 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:16:17 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,35 @@ void	run(t_minihell *mini, t_data *data)
 	int		builtin;
 	int		term_in;
 	int		term_out;
+	int		old_in;
+	int		old_out;
 	char	**commands;
 
 	term_in = dup(0);
 	term_out = dup(1);
+	old_in = term_in;
+	old_out = term_out;
 	while (data != NULL)
 	{
-		mini->input_arr = data->cmd;
-		builtin = builtin_check(mini);
-		commands = command_make(mini);
-		redirect_check(mini, commands[0]);
-		if (builtin == 1)
-			command_handle(mini);
-		else
+		data->split = fork();
+		if (data->split == 0)
 		{
-			if (heredoc_check(mini, 0) == 0)
-				not_builtin(mini, commands);
+			dup2(1, data->next->fd[0]);
+			mini->input_arr = data->cmd;
+			builtin = builtin_check(mini);
+			commands = command_make(mini);
+			redirect_check(mini, commands[0]);
+			if (builtin == 1)
+				command_handle(mini);
+			else
+			{
+				if (heredoc_check(mini, 0) == 0)
+					not_builtin(mini, commands);
+			}
+			free_funct(commands);
 		}
-		free_funct(commands);
+		else
+			waitpid(data->split, NULL, 0);
 		data = data->next;
 	}
 	dup2(term_in, 0);
@@ -125,7 +136,7 @@ int	main(int ac, char **av, char **envp)
 			free_funct(mini.term_in);
 			continue ;
 		}
-		pr(mini.data);
+		// pr(mini.data);
 		run(&mini, mini.data);
 		free_funct(mini.term_in);
 		clear_in(&mini.data);

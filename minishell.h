@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/22 00:29:13 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:13:03 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_data
 	char			**cmd;
 	int				fd[2];
 	pid_t			fork;
+	pid_t			split;
 	struct s_data	*next;
 }	t_data;
 
