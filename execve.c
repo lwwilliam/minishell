@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/21 18:23:13 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/23 17:17:07 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void	not_builtin(t_minihell *mini, char **commands)
 	mini->data->fork = fork();
 	if (mini->data->fork == 0)
 	{
-		heredoc_check(mini, 1);
 		if (execve(commands[0], commands, env) == -1)
 		{
 			printf("Minishell: %s: command not found\n", mini->input_arr[0]);
@@ -108,5 +107,7 @@ void	not_builtin(t_minihell *mini, char **commands)
 	else
 		waitpid(mini->data->fork, NULL, 0);
 	free_funct(env);
+	if (open(".tmp", O_RDONLY) > 0)
+		unlink(".tmp");
 	return ;
 }

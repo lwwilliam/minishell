@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:22:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/06 19:09:43 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/17 00:44:01 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ t_env	*add_node_end(t_env *head, char *key, char *value, int print)
 	new_node = (t_env *)malloc(sizeof(t_env));
 	if (new_node == NULL)
 		return (NULL);
-	new_node->key = key;
-	new_node->value = value;
+	new_node->key = ft_strdup(key);
+	new_node->value = ft_strdup(value);
+	free(key);
+	free(value);
 	new_node->print = print;
 	new_node->next = NULL;
 	if (head == NULL)
@@ -49,9 +51,7 @@ t_env	*add_node_end(t_env *head, char *key, char *value, int print)
 		return (head);
 	}
 	while (current_node->next != NULL)
-	{
 		current_node = current_node->next;
-	}
 	current_node->next = new_node;
 	return (head);
 }
