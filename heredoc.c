@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/23 17:48:16 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:30:09 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	heredoc_run(t_minihell *mini, char *str)
 {
 	int	tmp;
 
+	(void)mini;
 	tmp = open(".tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (ft_strlen(str) == 0)
 		str = ft_calloc(1, sizeof(char));

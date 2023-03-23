@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/23 17:49:04 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:28:33 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void	esl(t_minihell *mini)
 
 int	input_handle(t_minihell *mini)
 {
-	char	*tmp;
-	char	*tmp2;
-
 	mini->yes = readline("\033[0;32mMinishell$ \033[0m");
 	add_history(mini->yes);
 	if (!mini->yes)
@@ -79,7 +76,7 @@ void	run(t_minihell *mini, t_data *data)
 		else
 		{
 			if (heredoc_check(mini, 1) == 0)
-				not_builtin(mini, commands);
+				not_builtin(mini, data, commands);
 		}
 		free_funct(commands);
 		data = data->next;
@@ -125,7 +122,7 @@ int	main(int ac, char **av, char **envp)
 			free_funct(mini.term_in);
 			continue ;
 		}
-		// pr(mini.data);
+		pr(mini.data);
 		run(&mini, mini.data);
 		free_funct(mini.term_in);
 		clear_in(&mini.data);
