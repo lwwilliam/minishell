@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/23 18:00:18 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:34:12 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ char	*strjoin_helper(char *str1, char *str2, int free1, int free2);
 char	*expand(char *str, t_minihell *mini);
 int		env_name_len(char *str, int bool);
 char	*expand_helper(char *str, t_minihell *mini);
+void	esl(t_minihell *mini);
 
 //list diretory is not required
 void	not_builtin(t_minihell *mini, t_data *data, char **commands);

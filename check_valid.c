@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:16:14 by wting             #+#    #+#             */
-/*   Updated: 2023/03/17 19:33:51 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/24 14:34:00 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,40 @@ int	check_pipe(char *str)
 	return (0);
 }
 
+int	check_empty_pipe(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\'')
+			while (str[++i] != '\'')
+				;
+		if (str[i] == '"')
+			while (str[++i] != '"')
+				;
+		if (str[i] == '|')
+		{
+			while (str[i++])
+			{
+				if (str[i] != ' ' && str[i] != '|' && str[i] != '\0')
+					break ;
+				if (str[i] == '|' || str[i] == '\0')
+					return (1);
+			}
+		}
+	}
+	return (0);
+}
+
 int	check_valid(char *str)
 {
 	if (check_open_quotes(str))
 		return (1);
 	if (check_pipe(str))
+		return (1);
+	if (check_empty_pipe(str))
 		return (1);
 	return (0);
 }
