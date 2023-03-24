@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:29:02 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/23 17:15:37 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/24 19:51:55 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	left_redirect(t_minihell *mini, int x, char *valid)
 {
 	int		fd;
 
-	fd = open(mini->input_arr[x + 1], O_RDONLY);
+	while (mini->input_arr[x + 1])
+		x++;
+	fd = open(mini->input_arr[x], O_RDONLY);
 	if (fd < 0)
 	{
 		printf("Minishell: no such file or directory: %s\n",

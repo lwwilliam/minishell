@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/24 17:34:43 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/24 20:16:28 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	signal_handler(int num)
 
 void	run(t_minihell *mini, t_data *data)
 {
+	int		tmp;
 	int		builtin;
 	int		term_in;
 	int		term_out;
@@ -63,7 +64,12 @@ void	run(t_minihell *mini, t_data *data)
 		else
 		{
 			if (heredoc_check(mini, 1) == 0)
+			{
+				tmp = open(".tmp", O_RDONLY);
+				dup2(tmp, 0);
+				close(tmp);
 				not_builtin(mini, data, commands);
+			}
 		}
 		free_funct(commands);
 		data = data->next;

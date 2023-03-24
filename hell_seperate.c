@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:42:06 by wting             #+#    #+#             */
-/*   Updated: 2023/03/23 19:29:51 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/24 19:52:23 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ char	*seperate(char *str)
 {
 	int		i;
 	char	*ret;
-	// char	*str_start;
 
 	i = 0;
-	// str_start = str;
 	ret = malloc(sizeof(char) * (ft_strlen(str) + count_spaces(str) + 1));
 	while (*str)
 	{
