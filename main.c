@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/23 17:49:04 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:59:24 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	esl(t_minihell *mini)
-{
-	char	*tmp;
-	char	*tmp2;
-
-	tmp = expand(mini->yes, mini);
-	free(mini->yes);
-	tmp2 = seperate(tmp);
-	free(tmp);
-	mini->term_in = lexer(tmp2, mini);
-	free(tmp2);
-}
 
 int	input_handle(t_minihell *mini)
 {
