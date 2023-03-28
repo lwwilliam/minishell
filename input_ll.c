@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_ll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:56:45 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/22 00:29:23 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:17:33 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_data	*lcreate( char **cmd)
 	newlist->cmd = cmd;
 	pipe(newlist->fd);
 	newlist->next = NULL;
+	newlist->is_last_node = 0;
 	return (newlist);
 }
 

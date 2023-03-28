@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/24 16:24:26 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/28 21:19:59 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_data
 {
 	char			**cmd;
 	int				fd[2];
+	int				is_last_node;
 	pid_t			fork;
 	pid_t			split;
 	struct s_data	*next;
@@ -54,6 +55,7 @@ typedef struct s_minihell
 	char	**term_in;
 	char	*yes;
 	char	*tmp;
+	int		ll_len;
 	t_env	*env_ll;
 	t_data	*data;
 }	t_minihell;
@@ -118,7 +120,7 @@ char	*expand_helper(char *str, t_minihell *mini);
 void	esl(t_minihell *mini);
 
 //list diretory is not required
-void	not_builtin(t_minihell *mini, char **commands);
+void	not_builtin(t_minihell *mini, char **commands, int exit_if_zero);
 char	**command_make(t_minihell *mini);
 
 // void	reading(t_minihell *mini);
@@ -137,8 +139,9 @@ void	right_redirect(t_minihell *mini, int x, char *valid);
 // ">>"
 void	right_append(t_minihell *mini, int x, char *valid);
 
-//pipe test
-int		pipe_check(t_minihell *mini, int tmp_fd);
+//pipe
+void	run(t_minihell *mini, t_data *data);
+
 //seperate
 int		count_spaces(char *str);
 char	*seperate(char *str);

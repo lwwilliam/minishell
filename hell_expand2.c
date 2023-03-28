@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:23:24 by wting             #+#    #+#             */
-/*   Updated: 2023/03/24 16:24:30 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/27 17:56:57 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	esl(t_minihell *mini)
 	free (tmp2);
 	tmp2 = seperate(tmp);
 	free(tmp);
-	printf("str:%s\n", tmp2);
 	mini->term_in = lexer(tmp2, mini);
 	free(tmp2);
 }
