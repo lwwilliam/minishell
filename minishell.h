@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/28 21:19:59 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/29 15:12:43 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,14 @@ char	**env_2d(t_env *env);
 //redirections
 int		redirect_check(t_minihell *mini, char *valid);
 // "<"
-void	left_redirect(t_minihell *mini, int x, char *valid);
+int		left_redirect(t_minihell *mini, int x, char *valid);
 //">"
-void	right_redirect(t_minihell *mini, int x, char *valid);
+int		right_redirect(t_minihell *mini, int x, char *valid);
 // ">>"
-void	right_append(t_minihell *mini, int x, char *valid);
+int		right_append(t_minihell *mini, int x, char *valid);
+
+char	**mal_dup(t_minihell *mini);
+int		is_redir(char *str);
 
 //pipe
 void	run(t_minihell *mini, t_data *data);

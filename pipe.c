@@ -3,40 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/28 21:28:42 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/29 15:07:14 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	run_non_bin(t_minihell *mini, char **commands)
+{
+	int	tmp;
+
+	if (heredoc_check(mini, 1) == 0)
+	{
+		tmp = open(".tmp", O_RDONLY);
+		dup2(tmp, 0);
+		close(tmp);
+		not_builtin(mini, commands, 1);
+	}
+}
+
+char	**arr_dup(char **dup)
+{
+	int		x;
+	char	**arr;
+
+	x = 0;
+	while (dup[x++])
+		;
+	arr = ft_calloc(x + 1, sizeof(char *));
+	x = 0;
+	while (dup[x])
+	{
+		arr[x] = ft_strdup(dup[x]);
+		x++;
+	}
+	return (arr);
+}
+
 void	command(t_minihell *mini, t_data *data, int exit_if_zero)
 {
 	int		builtin;
-	int		tmp;
 	char	**commands;
+	int		term_in;
+	int		term_out;
 
-	mini->input_arr = data->cmd;
+	term_in = dup(STDIN_FILENO);
+	term_out = dup(STDOUT_FILENO);
+	mini->input_arr = arr_dup(data->cmd);
 	builtin = builtin_check(mini);
 	commands = command_make(mini);
-	redirect_check(mini, commands[0]);
+	if (redirect_check(mini, commands[0]) == 1)
+		return (free_funct(commands));
 	if (builtin == 1)
 		command_handle(mini);
 	else
-	{
-		if (heredoc_check(mini, 1) == 0)
-		{
-			tmp = open(".tmp", O_RDONLY);
-			dup2(tmp, 0);
-			close(tmp);
-			not_builtin(mini, commands, 1);
-		}
-	}
+		run_non_bin(mini, commands);
 	free_funct(commands);
 	if (exit_if_zero == 0)
 		exit (0);
+	dup2(term_in, 0);
+	dup2(term_out, 1);
+	close(term_in);
+	close(term_out);
+	free_funct(mini->input_arr);
 }
 
 void	run_dup(int tmp_read, t_minihell *mini, t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/28 21:26:56 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/29 15:10:33 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 //if test == 1 : run heredoc
 //if test == 0 : dont run heredoc unless the first input is << 
 //e.g (<< t) 
-int    heredoc_check(t_minihell *mini, int test)
+int	heredoc_check(t_minihell *mini, int test)
 {
-	int    x;
+	int	x;
 
 	x = 0;
 	while (mini->input_arr[x])
@@ -28,15 +28,15 @@ int    heredoc_check(t_minihell *mini, int test)
 			return (1);
 		}
 		else if (!ft_strncmp(mini->input_arr[x], "<<", 3))
-				heredoc(mini, x + 1);
+			heredoc(mini, x + 1);
 		x++;
 	}
 	return (0);
 }
 
-void    heredoc_run(t_minihell *mini, char *str)
+void	heredoc_run(t_minihell *mini, char *str)
 {
-	int    tmp;
+	int	tmp;
 
 	(void)mini;
 	tmp = open(".tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -49,12 +49,12 @@ void    heredoc_run(t_minihell *mini, char *str)
 	free(str);
 }
 
-int    heredoc(t_minihell *mini, int x)
+int	heredoc(t_minihell *mini, int x)
 {
-	char    *key_word;
-	char    *long_str;
-	char    *long_str1;
-	char    *here_arg;
+	char	*key_word;
+	char	*long_str;
+	char	*long_str1;
+	char	*here_arg;
 
 	long_str = "";
 	key_word = mini->input_arr[x];
@@ -76,4 +76,25 @@ int    heredoc(t_minihell *mini, int x)
 		long_str = strjoin_helper(long_str1, "\n", 1, 0);
 	}
 	return (0);
+}
+
+char	**mal_dup(t_minihell *mini)
+{
+	int		x;
+	char	**arr;
+
+	x = -1;
+	while (mini->input_arr[++x])
+		;
+	arr = ft_calloc(x + 1, sizeof(char *));
+	return (arr);
+}
+
+int	is_redir(char *str)
+{
+	if (!ft_strncmp(str, ">", 2))
+		return (0);
+	else if (!ft_strncmp(str, ">>", 3))
+		return (0);
+	return (1);
 }
