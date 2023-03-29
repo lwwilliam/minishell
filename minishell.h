@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/29 15:12:43 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:55:45 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <dirent.h>
 # include <sys/types.h> 
 # include <sys/wait.h> 
+
+int	g_err_code;
 
 //link_list for env
 typedef struct s_env
@@ -58,9 +60,11 @@ typedef struct s_minihell
 	int		ll_len;
 	t_env	*env_ll;
 	t_data	*data;
+	struct termios	termios_old;
+	struct termios	termios_new;
 }	t_minihell;
 
-void	term(void);
+void	term(t_minihell *mini);
 
 //built_in
 void	command_handle(t_minihell *mini);

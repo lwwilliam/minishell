@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hell_lexer2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:27:43 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/07 13:22:37 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:40:12 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ char	*expand_helper(char *str, t_minihell *mini)
 		;
 	tmp1 = ft_substr(str, 0, i);
 	sub = ft_substr(str, i + 1, env_name_len(str, 0));
-	tmp2 = strjoin_helper(tmp1, get_env(mini->env_ll, sub), 1, 0);
+	if (!ft_strncmp(sub, "?", 2))
+		tmp2 = strjoin_helper(tmp1, get_env(mini->env_ll, sub), 1, 1);
+	else
+		tmp2 = strjoin_helper(tmp1, get_env(mini->env_ll, sub), 1, 0);
 	free (sub);
 	tmp1 = ft_substr(str, env_name_len(str, 1), ft_strlen(str));
 	ret = strjoin_helper(tmp2, tmp1, 1, 1);

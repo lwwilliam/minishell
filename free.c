@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:23:59 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/29 15:05:05 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:56:08 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,11 @@ int	export_error(char *in, char *key, char *value)
 	return (1);
 }
 
-void	term(void)
+void	term(t_minihell *mini)
 {
-	struct termios	termios_new;
-
-	tcgetattr(STDIN_FILENO, &termios_new);
-	termios_new.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &termios_new);
-	tcsetattr(0, 0, &termios_new);
+	tcgetattr(STDIN_FILENO, &mini->termios_new);
+	tcgetattr(STDIN_FILENO, &mini->termios_old);
+	mini->termios_new.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &mini->termios_new);
+	tcsetattr(0, 0, &mini->termios_new);
 }

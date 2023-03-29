@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/29 13:41:21 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:55:40 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,17 @@ void	signal_handler(int num)
 {
 	if (num == SIGINT)
 	{
-		write(0, "\n", 1);
 		rl_replace_line("", 0);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 	}
+}
+
+void	signal_handler2(int num)
+{
+	if (num == SIGINT)
+		write(1, "\n", 1);
 }
 
 // void	pr(t_data *d)
@@ -85,11 +91,11 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	mini.env_ll = env_init(envp);
-	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-	term();
+	term(&mini);
 	while (1)
 	{
+		signal(SIGINT, signal_handler);
 		if (input_handle(&mini) == 1)
 			continue ;
 		if (mini.term_in[0] == 0)
@@ -97,7 +103,11 @@ int	main(int ac, char **av, char **envp)
 			free_funct(mini.term_in);
 			continue ;
 		}
+		g_err_code = 0;
+		tcsetattr(0, 0, &mini.termios_old);
+		signal(SIGINT, signal_handler2);
 		run(&mini, mini.data);
+		tcsetattr(0, 0, &mini.termios_new);
 		free_funct(mini.term_in);
 		clear_in(&mini.data);
 	}
