@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:42 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/21 18:42:31 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:58:32 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	command_handle(t_minihell *mini)
+void	command_handle(t_minihell *mini, int exit_if_zero)
 {
 	if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "env", 4))
 		print_env(mini->env_ll);
@@ -26,6 +26,9 @@ void	command_handle(t_minihell *mini)
 		export(mini);
 	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "echo", 7))
 		echo(mini);
+	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "exit", 5) && \
+		exit_if_zero == 0)
+		exit(0);
 	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "exit", 5))
 		end(mini, 1);
 	else if (mini->input_arr && mini->input_arr[0])

@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/29 16:55:45 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/30 19:08:52 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_minihell
 void	term(t_minihell *mini);
 
 //built_in
-void	command_handle(t_minihell *mini);
+void	command_handle(t_minihell *mini, int exit_if_zero);
 int		builtin_check(t_minihell *mini);
 
 //input handle (not done)
@@ -124,7 +124,7 @@ char	*expand_helper(char *str, t_minihell *mini);
 void	esl(t_minihell *mini);
 
 //list diretory is not required
-void	not_builtin(t_minihell *mini, char **commands, int exit_if_zero);
+void	not_builtin(t_minihell *mini, char **commands);
 char	**command_make(t_minihell *mini);
 
 // void	reading(t_minihell *mini);

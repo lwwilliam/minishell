@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:29:02 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/29 15:12:32 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:57:07 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	redirect_check(t_minihell *mini, char *valid)
 	int	err;
 
 	x = 0;
+	err = 0;
 	while (mini->input_arr[x])
 	{
 		if (!ft_strncmp(mini->input_arr[x], ">", 2))

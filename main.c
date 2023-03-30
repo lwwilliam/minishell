@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/29 16:55:40 by wting            ###   ########.fr       */
+/*   Updated: 2023/03/30 17:41:47 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	lstsize(t_data *lst)
 
 	x = 0;
 	if (!lst)
-		return (0);
+		return (1);
 	while (lst)
 	{
 		lst = lst->next;
@@ -33,9 +33,9 @@ int	input_handle(t_minihell *mini)
 	char	*tmp2;
 
 	mini->yes = readline("\033[0;32mMinishell$ \033[0m");
-	add_history(mini->yes);
 	if (!mini->yes)
 		end(mini, 1);
+	add_history(mini->yes);
 	if (!check_valid(mini->yes))
 		esl(mini);
 	else
