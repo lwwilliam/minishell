@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:23:59 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/06 18:51:45 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/06 19:06:33 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	end(t_minihell *mini, int print, int num)
 		printf("exit\n");
 		system("leaks Minishell");
 	}
+	tcsetattr(0, 0, &mini->termios_old);
 	exit(num);
 }
 

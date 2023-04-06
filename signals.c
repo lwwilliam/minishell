@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:52:42 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/06 18:56:22 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/06 19:08:55 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	signal_handler2(int num)
 	if (num == SIGINT)
 		write(1, "\n", 1);
 	if (num == SIGQUIT)
-		write(1, "^\\Quit: 3\n", 10);
+		write(1, "Quit: 3\n", 8);
 }
 
 //if up == 0 \ down == 1 
