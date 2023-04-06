@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 11:22:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/17 00:44:01 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:36:46 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	remove_node(t_env **head, char *key)
 	current = *head;
 	while (current != NULL)
 	{
-		if (!ft_strncmp(current->key, key, ft_strlen(key)))
+		if (!ft_strncmp(current->key, key, ft_strlen(key) + 1))
 		{
 			if (previous == NULL)
 				*head = current->next;

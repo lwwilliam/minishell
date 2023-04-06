@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hell_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 18:27:16 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/17 00:44:28 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:39:03 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	*get_env(t_env *env_ll, char *what)
 {
 	char	*tmp;
 
+	if (!ft_strncmp(what, "?", 2))
+		return (ft_itoa(g_err_code));
 	tmp = "";
 	while (env_ll != NULL)
 	{

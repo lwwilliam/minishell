@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:23:59 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/24 17:40:09 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/06 18:51:45 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	freelist(t_env **env)
 	*env = NULL;
 }
 
-void	end(t_minihell *mini, int print)
+void	end(t_minihell *mini, int print, int num)
 {
 	rl_clear_history();
 	freelist(&mini->env_ll);
@@ -51,23 +51,33 @@ void	end(t_minihell *mini, int print)
 		printf("exit\n");
 		system("leaks Minishell");
 	}
-	exit(0);
+	exit(num);
 }
 
 int	export_error(char *in, char *key, char *value)
 {
-	printf("Minishell: export: '%s': not a valid identifier\n", in);
-	free(value);
-	free(key);
+	int	x;
+
+	x = 0;
+	if (!ft_strchr(key, '_'))
+	{
+		printf("Minishell: export: '%s': not a valid identifier\n", in);
+		free(value);
+		free(key);
+	}
+	else if (in[1] != '=')
+	{
+		free(key);
+		free(value);
+	}
 	return (1);
 }
 
-void	term(void)
+void	term(t_minihell *mini)
 {
-	struct termios	termios_new;
-
-	tcgetattr(STDIN_FILENO, &termios_new);
-	termios_new.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &termios_new);
-	tcsetattr(0, 0, &termios_new);
+	tcgetattr(STDIN_FILENO, &mini->termios_new);
+	tcgetattr(STDIN_FILENO, &mini->termios_old);
+	mini->termios_new.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &mini->termios_new);
+	tcsetattr(0, 0, &mini->termios_new);
 }

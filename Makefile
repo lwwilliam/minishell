@@ -6,7 +6,7 @@ SRC = main.c hell_env.c directory.c hell_lexer.c hell_lexer2.c \
 		str_ll.c free.c export_unset.c echo.c execve.c hell_expand.c \
 		built_in.c heredoc.c env_2d.c redirection.c pipe.c \
 		hell_seperate.c hell_seperate2.c hell_utils.c \
-		check_valid.c input_ll.c hell_expand2.c
+		check_valid.c input_ll.c hell_expand2.c signals.c
 
 CC = gcc
 
@@ -40,5 +40,3 @@ f:
 	rm -r Minishell.dSYM
 
 .PHONY :libft $(NAME)
-
-#echo "dasdsa asdsa" >> t have some issues

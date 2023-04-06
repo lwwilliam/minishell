@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/24 20:20:32 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:10:33 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	heredoc_check(t_minihell *mini, int test)
 			return (1);
 		}
 		else if (!ft_strncmp(mini->input_arr[x], "<<", 3))
-				heredoc(mini, x + 1);
+			heredoc(mini, x + 1);
 		x++;
 	}
 	return (0);
@@ -76,4 +76,25 @@ int	heredoc(t_minihell *mini, int x)
 		long_str = strjoin_helper(long_str1, "\n", 1, 0);
 	}
 	return (0);
+}
+
+char	**mal_dup(t_minihell *mini)
+{
+	int		x;
+	char	**arr;
+
+	x = -1;
+	while (mini->input_arr[++x])
+		;
+	arr = ft_calloc(x + 1, sizeof(char *));
+	return (arr);
+}
+
+int	is_redir(char *str)
+{
+	if (!ft_strncmp(str, ">", 2))
+		return (0);
+	else if (!ft_strncmp(str, ">>", 3))
+		return (0);
+	return (1);
 }

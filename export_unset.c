@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 19:43:30 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:43:40 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	unset(t_minihell *mini)
 				mini->input_arr[x]);
 			err = 1;
 		}
+		if (ft_strchr(mini->input_arr[x], '_'))
+			err = 1;
 		if (err == 0 && !ft_strncmp(mini->input_arr[x], mini->env_ll->key,
 				ft_strlen(mini->input_arr[x]) + 1))
 			remove_head_node(&mini->env_ll);
@@ -36,11 +38,13 @@ int	unset(t_minihell *mini)
 	return (0);
 }
 
-int	check_exist(t_env *env_ll, char *key, char *value)
+int	check_exist(t_env *env_ll, char *key, char *value, int yes_no)
 {
+	if (key[0] == '_')
+		return (1);
 	while (env_ll != NULL)
 	{
-		if (!ft_strncmp(env_ll->key, key, ft_strlen(key) + 1))
+		if (!ft_strncmp(env_ll->key, key, ft_strlen(key) + 1) && yes_no == 0)
 		{
 			free(env_ll->value);
 			free(key);
@@ -91,13 +95,14 @@ int	export(t_minihell *mini)
 		export_equal(mini, mini->env_ll);
 	while (mini->input_arr[++x])
 	{
+		printf("%s\n", mini->input_arr[x]);
 		yes_no = 0;
 		if (!ft_strchr(mini->input_arr[x], '='))
 			yes_no = 1;
 		key = ft_substr(mini->input_arr[x], 0, key_len(mini->input_arr[x]));
 		value = ft_substr(mini->input_arr[x], key_len(mini->input_arr[x]) + 1,
 				ft_strlen(mini->input_arr[x]) - key_len(mini->input_arr[x]));
-		err = check_exist(mini->env_ll, key, value);
+		err = check_exist(mini->env_ll, key, value, yes_no);
 		if (!ft_isalpha(key[0]))
 			err = export_error(mini->input_arr[x], key, value);
 		if (err == 0)

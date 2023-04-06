@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/24 17:34:12 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/06 18:53:31 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <sys/types.h> 
 # include <sys/wait.h> 
 
+int	g_err_code;
+
 //link_list for env
 typedef struct s_env
 {
@@ -43,6 +45,7 @@ typedef struct s_data
 {
 	char			**cmd;
 	int				fd[2];
+	int				is_last_node;
 	pid_t			fork;
 	pid_t			split;
 	struct s_data	*next;
@@ -50,18 +53,21 @@ typedef struct s_data
 
 typedef struct s_minihell
 {
-	char	**input_arr;
-	char	**term_in;
-	char	*yes;
-	char	*tmp;
-	t_env	*env_ll;
-	t_data	*data;
+	char			**input_arr;
+	char			**term_in;
+	char			*yes;
+	char			*tmp;
+	int				ll_len;
+	t_env			*env_ll;
+	t_data			*data;
+	struct termios	termios_old;
+	struct termios	termios_new;
 }	t_minihell;
 
-void	term(void);
+void	term(t_minihell *mini);
 
 //built_in
-void	command_handle(t_minihell *mini);
+void	command_handle(t_minihell *mini, int exit_if_zero);
 int		builtin_check(t_minihell *mini);
 
 //input handle (not done)
@@ -92,19 +98,19 @@ void	remove_head_node(t_env **head);
 int		unset(t_minihell *mini);
 int		export(t_minihell *mini);
 int		export_error(char *in, char *key, char *value);
-int		check_exist(t_env *env_ll, char *key, char *value);
+int		check_exist(t_env *env_ll, char *key, char *value, int yes_no);
 // int		check_exist(t_env *env_ll, char *key, char *value, int yes_no);
 
 //echo
 void	echo(t_minihell *mini);
 
 //signals
-void	signal_handler(int num);
+void	signals(int up_down);
 
 //free
 void	free_funct(char **array);
 void	freelist(t_env **env);
-void	end(t_minihell *mini, int print);
+void	end(t_minihell *mini, int print, int num);
 
 //lexer
 char	**lexer(char *str, t_minihell *mini);
@@ -118,7 +124,7 @@ char	*expand_helper(char *str, t_minihell *mini);
 void	esl(t_minihell *mini);
 
 //list diretory is not required
-void	not_builtin(t_minihell *mini, t_data *data, char **commands);
+void	not_builtin(t_minihell *mini, char **commands);
 char	**command_make(t_minihell *mini);
 
 // void	reading(t_minihell *mini);
@@ -131,14 +137,18 @@ char	**env_2d(t_env *env);
 //redirections
 int		redirect_check(t_minihell *mini, char *valid);
 // "<"
-void	left_redirect(t_minihell *mini, int x, char *valid);
+int		left_redirect(t_minihell *mini, int x, char *valid);
 //">"
-void	right_redirect(t_minihell *mini, int x, char *valid);
+int		right_redirect(t_minihell *mini, int x, char *valid);
 // ">>"
-void	right_append(t_minihell *mini, int x, char *valid);
+int		right_append(t_minihell *mini, int x, char *valid);
 
-//pipe test
-int		pipe_check(t_minihell *mini, int tmp_fd);
+char	**mal_dup(t_minihell *mini);
+int		is_redir(char *str);
+
+//pipe
+void	run(t_minihell *mini, t_data *data);
+
 //seperate
 int		count_spaces(char *str);
 char	*seperate(char *str);
