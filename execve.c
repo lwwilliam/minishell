@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/07 14:57:01 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/10 15:39:25 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	not_builtin(t_minihell *mini, char **commands)
 	}
 	else
 		waitpid(fork_pid, &status, 0);
-	g_err_code = status;
+	g_err_code = status % 255;
 	free_funct(env);
 	unlink(".tmp");
 	return ;
