@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/06 18:53:31 by lwilliam         ###   ########.fr       */
+/*   Created: 2023/04/06 19:36:01 by lwilliam          #+#    #+#             */
+/*   Updated: 2023/04/10 12:53:14 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <dirent.h>
 # include <sys/types.h> 
 # include <sys/wait.h> 
+
+# define REDIR_ERR "Minishell: syntax error near unexpected taken 'newline\n"
 
 int	g_err_code;
 
@@ -143,6 +145,7 @@ int		right_redirect(t_minihell *mini, int x, char *valid);
 // ">>"
 int		right_append(t_minihell *mini, int x, char *valid);
 
+void	array_dup(t_minihell *mini);
 char	**mal_dup(t_minihell *mini);
 int		is_redir(char *str);
 

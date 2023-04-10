@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 20:38:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/16 19:47:40 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:23:09 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,11 @@ void	change_dir(t_minihell *mini)
 			printf("%s\n", new_dir);
 	}
 	else if (chdir(mini->input_arr[1]) == -1)
+	{
+		g_err_code = 1;
 		printf("Minishell: cd: %s: No such file or directory\n",
 			mini->input_arr[1]);
+	}
 	assign_oldpwd(mini->env_ll, pwd, mini);
 	pwd = getcwd(NULL, 1024);
 	pwd_update(mini->env_ll, pwd, mini);

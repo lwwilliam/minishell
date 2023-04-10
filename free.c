@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:23:59 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/06 19:06:33 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:25:37 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	export_error(char *in, char *key, char *value)
 	x = 0;
 	if (!ft_strchr(key, '_'))
 	{
+		g_err_code = 1;
 		printf("Minishell: export: '%s': not a valid identifier\n", in);
 		free(value);
 		free(key);

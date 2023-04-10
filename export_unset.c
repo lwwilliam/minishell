@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:18:51 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/06 17:43:40 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:24:56 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	unset(t_minihell *mini)
 		{
 			printf("Minishell: unset: '%s': not a valid identifier\n",
 				mini->input_arr[x]);
+			g_err_code = 1;
 			err = 1;
 		}
 		if (ft_strchr(mini->input_arr[x], '_'))

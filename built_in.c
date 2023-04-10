@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 21:10:42 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/06 18:51:08 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:48:40 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	command_handle(t_minihell *mini, int exit_if_zero)
 		exit(0);
 	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "exit", 5))
 		end(mini, 1, exit_num(mini->input_arr));
-	else if (mini->input_arr && mini->input_arr[0])
-		printf("Minishell: %s: command not found\n", mini->input_arr[0]);
 }
 
 int	builtin_check(t_minihell *mini)
@@ -64,4 +62,33 @@ int	builtin_check(t_minihell *mini)
 	else if (mini->input_arr && !ft_strncmp(mini->input_arr[0], "exit", 5))
 		return (1);
 	return (0);
+}
+
+void	array_dup(t_minihell *mini)
+{
+	char	**dup;
+	int		x;
+	int		y;
+
+	y = 0;
+	x = 0;
+	dup = mal_dup(mini);
+	while (mini->input_arr[x])
+	{
+		if (!is_redir(mini->input_arr[x]))
+			x += 2;
+		else
+			dup[y++] = ft_strdup(mini->input_arr[x++]);
+	}
+	x = -1;
+	while (mini->input_arr[++x])
+	{
+		if (!is_redir(mini->input_arr[x]))
+		{
+			dup[y++] = ft_strdup(mini->input_arr[x++]);
+			dup[y++] = ft_strdup(mini->input_arr[x]);
+		}
+	}
+	free_funct(mini->input_arr);
+	mini->input_arr = dup;
 }
