@@ -6,11 +6,24 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/30 21:30:46 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/13 15:07:24 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_close(int fd)
+{
+	dprintf(2, "pipe_closed: %d\n", fd);
+	if (close(fd) == -1)
+		dprintf(2, "CLOSE ERROR\n");
+}
+
+void	ft_dup2(int fd1, int fd2)
+{
+	if (dup2(fd1, fd2) == -1)
+		dprintf(2, "dup2 ERROR\n");
+}
 
 void	piped_not_builtin(t_minihell *mini, char **commands)
 {
@@ -32,7 +45,7 @@ void	run_non_bin(t_minihell *mini, char **commands)
 	{
 		tmp = open(".tmp", O_RDONLY);
 		dup2(tmp, 0);
-		close(tmp);
+		ft_close(tmp);
 		not_builtin(mini, commands);
 	}
 }
@@ -62,83 +75,101 @@ void	command(t_minihell *mini, t_data *data, int exit_if_zero)
 	int		term_in;
 	int		term_out;
 
-	term_in = dup(STDIN_FILENO);
-	term_out = dup(STDOUT_FILENO);
+	// term_in = dup(STDIN_FILENO);
+	// term_out = dup(STDOUT_FILENO);
 	mini->input_arr = arr_dup(data->cmd);
 	builtin = builtin_check(mini);
 	commands = command_make(mini);
-	if (redirect_check(mini, commands[0]) == 1)
-		return (free_funct(commands));
-	if (builtin == 1)
-		command_handle(mini, exit_if_zero);
-	else if (!exit_if_zero)
-		piped_not_builtin(mini, commands);
-	else
-		run_non_bin(mini, commands);
-	dup2(term_in, 0);
-	dup2(term_out, 1);
-	close(term_in);
-	close(term_out);
+	// if (redirect_check(mini, commands[0]) == 1)
+	// 	return (free_funct(commands));
+	// if (builtin == 1)
+	// 	command_handle(mini, exit_if_zero);
+	// else if (!exit_if_zero)
+	piped_not_builtin(mini, commands);
+	// else
+	// 	run_non_bin(mini, commands);
+	// dup2(term_in, 0);
+	// dup2(term_out, 1);
+	// ft_close(term_in);
+	// ft_close(term_out);
 	if (exit_if_zero == 0)
 		exit (0);
 	free_funct(commands);
 	free_funct(mini->input_arr);
 }
 
-void	run_dup(int tmp_read, t_minihell *mini, t_data *data)
+void	close_all_pipes(t_data *data)
 {
-	if (tmp_read == -1)
-		dup2(data->fd[1], STDOUT_FILENO);
+	while (data != NULL)
+	{
+		ft_close(data->fd[0]);
+		ft_close(data->fd[1]);
+		data = data->next;
+	}
+}
+
+void	run_dup(int *tmp_read, t_minihell *mini, t_data *data, t_data *first)
+{
+	t_data	*tmp;
+
+	if (*tmp_read == -2)
+		ft_dup2(data->fd[1], STDOUT_FILENO);
 	else if (data->next != NULL)
 	{
-		dup2(tmp_read, STDIN_FILENO);
-		dup2(data->fd[1], STDOUT_FILENO);
+		ft_dup2(*tmp_read, STDIN_FILENO);
+		ft_dup2(data->fd[1], STDOUT_FILENO);
 	}
-	else if (data->next == NULL)
-		dup2(tmp_read, STDIN_FILENO);
-	close(data->fd[1]);
-	close(tmp_read);
-	close(data->fd[0]);
+	else
+		ft_dup2(*tmp_read, STDIN_FILENO);
+	close_all_pipes(first);
 	command(mini, data, 0);
 }
 
-void	close_pipe(int *tmp_read, t_data *data)
+void	run_pipes(t_minihell *mini, t_data *data, t_data *first)
 {
-	close(data->fd[1]);
-	if (*tmp_read != -1)
-		close(*tmp_read);
-	if (data->next != NULL)
+	int	tmp_read;
+
+	tmp_read = -2;
+	while (data != NULL)
 	{
-		*tmp_read = dup(STDIN_FILENO);
-		*tmp_read = data->fd[0];
-		close(data->fd[0]);
+		data->fork = fork();
+		if (data->fork == 0)
+			run_dup(&tmp_read, mini, data, first);
+		else if (data->fork == -1)
+		{
+			ft_putstr_fd("Fork failed\n", 2);
+			exit (1);
+		}
+		else
+		{
+			waitpid(0, 0, -1);
+			if (data->next != NULL)
+				tmp_read = data->fd[0];
+		}
+		data = data->next;
 	}
-	if (data->next == NULL)
-		close(data->fd[0]);
 }
 
 void	run(t_minihell *mini, t_data *data)
 {
-	int	tmp_read;
-	int	stat;
+	int		tmp_read;
+	int		stat;
+	t_data	*head;
+	t_data	*first;
 
 	if (mini->ll_len == 1)
 	{
 		command(mini, data, 1);
 		return ;
 	}
-	tmp_read = -1;
-	while (data != NULL)
+	tmp_read = -2;
+	first = data;
+	run_pipes(mini, data, first);
+	close_all_pipes(first);
+	head = first;
+	while (head != NULL)
 	{
-		data->fork = fork();
-		if (data->fork == 0)
-		{
-			run_dup(tmp_read, mini, data);
-			exit (0);
-		}
-		close_pipe(&tmp_read, data);
-		data = data->next;
+		waitpid(-1, NULL, WUNTRACED);
+		head = head->next;
 	}
-	while (waitpid(-1, 0, 0) >= 0)
-		;
 }

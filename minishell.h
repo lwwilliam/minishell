@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/30 19:08:52 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/13 15:06:56 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ typedef struct s_data
 
 typedef struct s_minihell
 {
-	char	**input_arr;
-	char	**term_in;
-	char	*yes;
-	char	*tmp;
-	int		ll_len;
-	t_env	*env_ll;
-	t_data	*data;
+	char			**input_arr;
+	char			**term_in;
+	char			*yes;
+	char			*tmp;
+	int				ll_len;
+	t_env			*env_ll;
+	t_data			*data;
 	struct termios	termios_old;
 	struct termios	termios_new;
 }	t_minihell;
