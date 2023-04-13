@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 17:25:38 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:38:59 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	input_handle(t_minihell *mini)
 	mini->yes = readline("\033[0;32mMinishell$ \033[0m");
 	if (!mini->yes)
 		end(mini, 1, 0);
-	add_history(mini->yes);
+	if (ft_strncmp(mini->yes, "", 2))
+		add_history(mini->yes);
 	if (!check_valid(mini->yes))
 		esl(mini);
 	else
@@ -44,7 +45,6 @@ int	input_handle(t_minihell *mini)
 		return (1);
 	}
 	dup_arr(mini->term_in, mini);
-	mini->ll_len = lstsize(mini->data);
 	return (0);
 }
 
@@ -82,6 +82,7 @@ int	main(int ac, char **av, char **envp)
 			free_funct(mini.term_in);
 			continue ;
 		}
+		mini.ll_len = lstsize(mini.data);
 		g_err_code = 0;
 		tcsetattr(0, 0, &mini.termios_old);
 		signals(1);

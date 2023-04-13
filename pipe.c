@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 17:34:51 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/13 20:06:53 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,16 @@ void	run_pipes(t_minihell *mini, t_data *data, t_data *first)
 			ft_putstr_fd("Fork failed\n", 2);
 			exit (1);
 		}
-		waitpid(0, 0, -1);
+		waitpid(0, &mini->err_stat, -1);
 		if (data->next != NULL)
 			tmp_read = data->fd[0];
 		term_reset(data);
 		data = data->next;
 	}
+	// g_err_code = mini->err_stat % 255;
+	// if (WIFSIGNALED(mini->err_stat))
+	// 	g_err_code = (WTERMSIG(mini->err_stat) + 128);
+	// printf("%d\n", g_err_code);
 }
 
 void	run(t_minihell *mini, t_data *data)
@@ -112,7 +116,11 @@ void	run(t_minihell *mini, t_data *data)
 	head = first;
 	while (head != NULL)
 	{
-		waitpid(-1, NULL, WUNTRACED);
+		waitpid(head->fork, &mini->err_stat, WUNTRACED);
+		g_err_code = mini->err_stat % 255;
+		if (WIFSIGNALED(mini->err_stat))
+			g_err_code = (WTERMSIG(mini->err_stat) + 128);
+		printf("%d\n", g_err_code);
 		head = head->next;
 	}
 }

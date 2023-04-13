@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 17:23:12 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:50:58 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,12 @@ int	heredoc(t_minihell *mini, int x)
 	while (1)
 	{
 		here_arg = readline("> ");
-		if (!ft_strncmp(here_arg, key_word, ft_strlen(key_word) + 1))
+		if (!here_arg || \
+			!ft_strncmp(here_arg, key_word, ft_strlen(key_word) + 1))
 		{
 			heredoc_run(mini, long_str);
 			free(here_arg);
-			if (x == 0)
-				return (1);
-			else
-				return (0);
+			return (0);
 		}
 		long_str1 = strjoin_helper(long_str, here_arg, 0, 1);
 		if (ft_strlen(long_str) > 0)

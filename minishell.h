@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 17:34:08 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/13 19:58:53 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_minihell
 	char			*yes;
 	char			*tmp;
 	int				ll_len;
+	int				err_stat;
 	t_env			*env_ll;
 	t_data			*data;
 	struct termios	termios_old;
