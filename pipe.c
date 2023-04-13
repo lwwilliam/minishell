@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 15:07:24 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/13 15:09:48 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_close(int fd)
 {
-	dprintf(2, "pipe_closed: %d\n", fd);
 	if (close(fd) == -1)
 		dprintf(2, "CLOSE ERROR\n");
 }
