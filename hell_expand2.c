@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hell_expand2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:23:24 by wting             #+#    #+#             */
-/*   Updated: 2023/03/27 17:56:57 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/13 17:25:19 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	*tilde_expand_helper(char *str, t_minihell *mini)
 	int		i;
 
 	i = -1;
+	(void) mini;
 	while (str[++i] && str[i] != '~')
 		;
 	tmp1 = ft_substr(str, 0, i);
@@ -63,7 +64,6 @@ char	*expand_tilde(char *str, t_minihell *mini)
 	int		i;
 	char	*ret;
 	int		count;
-	char	*tmp;
 
 	ret = NULL;
 	count = 0;

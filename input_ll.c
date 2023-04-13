@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_ll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:56:45 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/28 17:17:33 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/13 17:24:44 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	dup_arr(char **command, t_minihell *mini)
 
 char	**assign(int len, int x, char **command, t_minihell *mini)
 {
-	t_data	**head;
 	char	**tmp;
 	int		y;
 	int		len2;
@@ -49,6 +48,7 @@ char	**assign(int len, int x, char **command, t_minihell *mini)
 	y = 0;
 	tmp = ft_calloc(len + 1, sizeof(char *));
 	len2 = len;
+	(void) mini;
 	while (len > 0)
 	{
 		tmp[y] = ft_strdup(command[x - len2]);

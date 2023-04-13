@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 19:36:01 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/10 12:53:14 by lwilliam         ###   ########.fr       */
+/*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
+/*   Updated: 2023/04/13 17:34:08 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_data
 	char			**cmd;
 	int				fd[2];
 	int				is_last_node;
+	int				term_in;
+	int				term_out;
 	pid_t			fork;
 	pid_t			split;
 	struct s_data	*next;
@@ -131,7 +133,7 @@ char	**command_make(t_minihell *mini);
 
 // void	reading(t_minihell *mini);
 int		heredoc(t_minihell *mini, int x);
-int		heredoc_check(t_minihell *mini, int test);
+int		heredoc_check(t_minihell *mini);
 
 //env linked list to 2d array
 char	**env_2d(t_env *env);
@@ -151,6 +153,11 @@ int		is_redir(char *str);
 
 //pipe
 void	run(t_minihell *mini, t_data *data);
+void	run_bin(t_minihell *mini, char **commands, int exit_if_zero);
+void	piped_not_builtin(t_minihell *mini, char **commands);
+char	**arr_dup(char **dup);
+void	close_all_pipes(t_data *data);
+void	term_reset(t_data *data);
 
 //seperate
 int		count_spaces(char *str);

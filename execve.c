@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:19:44 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/10 15:39:25 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:49:37 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ char	**command_make(t_minihell *mini)
 void	not_builtin(t_minihell *mini, char **commands)
 {
 	char	**env;
-	int		status;
 	int		fork_pid;
 
 	env = env_2d(mini->env_ll);
@@ -108,8 +107,7 @@ void	not_builtin(t_minihell *mini, char **commands)
 		}
 	}
 	else
-		waitpid(fork_pid, &status, 0);
-	g_err_code = status % 255;
+		waitpid(fork_pid, NULL, 0);
 	free_funct(env);
 	unlink(".tmp");
 	return ;

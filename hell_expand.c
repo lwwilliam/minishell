@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:03:25 by wting             #+#    #+#             */
-/*   Updated: 2023/03/16 16:02:57 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:22:14 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*expand(char *str, t_minihell *mini)
 	int		i;
 	char	*ret;
 	int		count;
-	char	*tmp;
 
 	ret = NULL;
 	count = 0;

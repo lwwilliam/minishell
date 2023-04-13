@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:28:24 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/06 18:52:41 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:25:38 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ int	lstsize(t_data *lst)
 
 int	input_handle(t_minihell *mini)
 {
-	char	*tmp;
-	char	*tmp2;
-
 	mini->yes = readline("\033[0;32mMinishell$ \033[0m");
 	if (!mini->yes)
 		end(mini, 1, 0);

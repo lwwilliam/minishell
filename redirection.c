@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:29:02 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/10 13:11:47 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:23:42 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ char	*get_file(char **in, int x)
 int	left_redirect(t_minihell *mini, int x, char *valid)
 {
 	int		fd;
-	int		red_pos;
 	char	*file;
 
 	file = get_file(mini->input_arr, x);

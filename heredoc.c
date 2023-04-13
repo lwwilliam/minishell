@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 17:15:30 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/29 15:10:33 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:23:12 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //if test == 1 : run heredoc
 //if test == 0 : dont run heredoc unless the first input is << 
 //e.g (<< t) 
-int	heredoc_check(t_minihell *mini, int test)
+int	heredoc_check(t_minihell *mini)
 {
 	int	x;
 
