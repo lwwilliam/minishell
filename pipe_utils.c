@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 17:31:15 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 20:07:45 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:37:37 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ void	piped_not_builtin(t_minihell *mini, char **commands)
 
 	env = env_2d(mini->env_ll);
 	execve(commands[0], commands, env);
-	ft_putstr_fd("Minishell: ", 2);
-	ft_putstr_fd(mini->input_arr[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
 	exit(127);
 }
 

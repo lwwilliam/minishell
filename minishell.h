@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 19:58:53 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:21:46 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	esl(t_minihell *mini);
 //list diretory is not required
 void	not_builtin(t_minihell *mini, char **commands);
 char	**command_make(t_minihell *mini);
+char	*path_array(t_minihell *mini, char *from_env);
 
 // void	reading(t_minihell *mini);
 int		heredoc(t_minihell *mini, int x);

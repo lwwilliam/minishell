@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 20:06:53 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:38:06 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,23 @@ void	run_heredoc(t_minihell *mini, t_data *data)
 		dup2(tmp, 0);
 		close(tmp);
 	}
-	free_funct(mini->input_arr);
+}
+
+int	command_check(t_minihell *mini)
+{
+	char *path;
+
+	path = path_array(mini, get_env(mini->env_ll, "PATH"));
+	if (access(path, X_OK) == 0)
+	{
+		free(path);
+		return (0);
+	}
+	else
+	{
+		free(path);
+		return (1);
+	}
 }
 
 void	run_pipes(t_minihell *mini, t_data *data, t_data *first)
@@ -72,7 +88,11 @@ void	run_pipes(t_minihell *mini, t_data *data, t_data *first)
 	tmp_read = -2;
 	while (data != NULL)
 	{
+		mini->input_arr = arr_dup(data->cmd);
 		run_heredoc(mini, data);
+		if (command_check(mini) != 0)
+			printf("Minishell: %s: command not found.\n", mini->input_arr[0]);
+		free_funct(mini->input_arr);
 		data->fork = fork();
 		if (data->fork == 0)
 		{
@@ -90,10 +110,6 @@ void	run_pipes(t_minihell *mini, t_data *data, t_data *first)
 		term_reset(data);
 		data = data->next;
 	}
-	// g_err_code = mini->err_stat % 255;
-	// if (WIFSIGNALED(mini->err_stat))
-	// 	g_err_code = (WTERMSIG(mini->err_stat) + 128);
-	// printf("%d\n", g_err_code);
 }
 
 void	run(t_minihell *mini, t_data *data)
@@ -120,7 +136,6 @@ void	run(t_minihell *mini, t_data *data)
 		g_err_code = mini->err_stat % 255;
 		if (WIFSIGNALED(mini->err_stat))
 			g_err_code = (WTERMSIG(mini->err_stat) + 128);
-		printf("%d\n", g_err_code);
 		head = head->next;
 	}
 }
