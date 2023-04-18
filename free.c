@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:23:59 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/18 15:46:21 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/18 23:39:28 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	freelist(t_env **env)
 	*env = NULL;
 }
 
+// system("leaks Minishell");
+
 void	end(t_minihell *mini, int print, int num)
 {
 	rl_clear_history();
@@ -49,7 +51,6 @@ void	end(t_minihell *mini, int print, int num)
 	if (print == 1)
 	{
 		printf("exit\n");
-		system("leaks Minishell");
 	}
 	tcsetattr(0, 0, &mini->termios_old);
 	exit(num);

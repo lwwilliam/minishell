@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/18 15:56:19 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/18 23:36:47 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	command(t_minihell *mini, t_data *data, int exit_if_zero)
 	builtin = builtin_check(mini);
 	commands = command_make(mini);
 	if (redirect_check(mini, commands[0]) == 1)
-		return (free_funct(commands));
+		return ;
+	free_funct(commands);
+	commands = command_make(mini);
 	if (builtin == 1)
 		command_handle(mini, exit_if_zero);
 	else
@@ -38,13 +40,13 @@ void	run_dup(int *tmp_read, t_minihell *mini, t_data *data, t_data *first)
 		dup2(data->fd[1], STDOUT_FILENO);
 	else if (data->next != NULL)
 	{
-		if (data->heredoc_zero_if_valid)
+		if (!data->heredoc_zero_if_valid)
 			dup2(*tmp_read, STDIN_FILENO);
 		dup2(data->fd[1], STDOUT_FILENO);
 	}
 	else
 	{
-		if (data->heredoc_zero_if_valid)
+		if (!data->heredoc_zero_if_valid)
 			dup2(*tmp_read, STDIN_FILENO);
 	}
 	close_all_pipes(first);
