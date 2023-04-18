@@ -96,7 +96,6 @@ int	export(t_minihell *mini)
 		export_equal(mini, mini->env_ll);
 	while (mini->input_arr[++x])
 	{
-		printf("%s\n", mini->input_arr[x]);
 		yes_no = 0;
 		if (!ft_strchr(mini->input_arr[x], '='))
 			yes_no = 1;

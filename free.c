@@ -58,9 +58,6 @@ void	end(t_minihell *mini, int print, int num)
 
 int	export_error(char *in, char *key, char *value)
 {
-	int	x;
-
-	x = 0;
 	if (!ft_strchr(key, '_'))
 	{
 		g_err_code = 1;

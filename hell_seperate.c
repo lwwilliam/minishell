@@ -60,10 +60,8 @@ char	*seperate(char *str)
 {
 	int		i;
 	char	*ret;
-	char	*str_start;
 
 	i = 0;
-	str_start = str;
 	ret = malloc(sizeof(char) * (ft_strlen(str) + count_spaces(str) + 1));
 	while (*str)
 	{

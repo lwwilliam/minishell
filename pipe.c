@@ -97,13 +97,11 @@ void	run_pipes(t_minihell *mini, t_data *data, t_data *first)
 
 void	run(t_minihell *mini, t_data *data)
 {
-	int		tmp_read;
 	t_data	*head;
 	t_data	*first;
 
 	if (!run_no_pipes(mini, data))
 		return ;
-	tmp_read = -2;
 	first = data;
 	run_pipes(mini, data, first);
 	close_all_pipes(first);
