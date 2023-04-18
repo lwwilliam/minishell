@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:29:02 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 17:23:42 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:42:12 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	left_redirect(t_minihell *mini, int x, char *valid)
 	{
 		g_err_code = 1;
 		printf("Minishell: no such file or directory\
-: %s\n", mini->input_arr[x + 1]);
+: %s\n", file);
 		return (1);
 	}
 	if (access(valid, X_OK) == 0 || builtin_check(mini) == 1)

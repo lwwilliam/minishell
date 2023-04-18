@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/18 14:56:13 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:45:26 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	command_check(t_minihell *mini)
 {
 	char *path;
 
+	if (builtin_check(mini))
+		return (0);
 	path = path_array(mini, get_env(mini->env_ll, "PATH"));
 	if (access(path, X_OK) == 0)
 	{
