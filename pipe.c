@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 20:06:53 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:53:36 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ void	run_dup(int *tmp_read, t_minihell *mini, t_data *data, t_data *first)
 		dup2(data->fd[1], STDOUT_FILENO);
 	else if (data->next != NULL)
 	{
-		dup2(*tmp_read, STDIN_FILENO);
+		if (data->heredoc_zero_if_valid)
+			dup2(*tmp_read, STDIN_FILENO);
 		dup2(data->fd[1], STDOUT_FILENO);
 	}
 	else
 	{
-		dup2(*tmp_read, STDIN_FILENO);
+		if (data->heredoc_zero_if_valid)
+			dup2(*tmp_read, STDIN_FILENO);
 	}
 	close_all_pipes(first);
 	command(mini, data, 0);
@@ -52,13 +54,17 @@ void	run_dup(int *tmp_read, t_minihell *mini, t_data *data, t_data *first)
 void	run_heredoc(t_minihell *mini, t_data *data)
 {
 	int	tmp;
+	static int i;
 
 	data->term_in = dup(STDIN_FILENO);
 	data->term_out = dup(STDOUT_FILENO);
 	mini->input_arr = arr_dup(data->cmd);
-	if (heredoc_check(mini) == 0)
+	data->heredoc_zero_if_valid = heredoc_check(mini);
+	if (data->heredoc_zero_if_valid == 0)
 	{
+		dprintf(2, "index %i\n", i++);
 		tmp = open(".tmp", O_RDONLY);
+		dprintf(2, "tmp %d\n", tmp);
 		dup2(tmp, 0);
 		close(tmp);
 	}
@@ -102,13 +108,8 @@ void	run(t_minihell *mini, t_data *data)
 	t_data	*head;
 	t_data	*first;
 
-	if (mini->ll_len == 1)
-	{
-		run_heredoc(mini, data);
-		command(mini, data, 1);
-		term_reset(data);
+	if (!run_no_pipes(mini, data))
 		return ;
-	}
 	tmp_read = -2;
 	first = data;
 	run_pipes(mini, data, first);
@@ -120,7 +121,6 @@ void	run(t_minihell *mini, t_data *data)
 		g_err_code = mini->err_stat % 255;
 		if (WIFSIGNALED(mini->err_stat))
 			g_err_code = (WTERMSIG(mini->err_stat) + 128);
-		printf("%d\n", g_err_code);
 		head = head->next;
 	}
 }

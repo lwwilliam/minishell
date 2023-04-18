@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/13 19:58:53 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:51:01 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_data
 	int				is_last_node;
 	int				term_in;
 	int				term_out;
+	int				heredoc_zero_if_valid;
 	pid_t			fork;
 	pid_t			split;
 	struct s_data	*next;
@@ -159,6 +160,9 @@ void	piped_not_builtin(t_minihell *mini, char **commands);
 char	**arr_dup(char **dup);
 void	close_all_pipes(t_data *data);
 void	term_reset(t_data *data);
+int		run_no_pipes(t_minihell *mini, t_data *data);
+void	command(t_minihell *mini, t_data *data, int exit_if_zero);
+void	run_heredoc(t_minihell *mini, t_data *data);
 
 //seperate
 int		count_spaces(char *str);
