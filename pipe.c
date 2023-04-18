@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/14 18:53:36 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/18 15:06:52 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ void	run_heredoc(t_minihell *mini, t_data *data)
 	data->heredoc_zero_if_valid = heredoc_check(mini);
 	if (data->heredoc_zero_if_valid == 0)
 	{
-		dprintf(2, "index %i\n", i++);
 		tmp = open(".tmp", O_RDONLY);
-		dprintf(2, "tmp %d\n", tmp);
 		dup2(tmp, 0);
 		close(tmp);
 	}
