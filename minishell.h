@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:03 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/14 18:21:46 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:54:09 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,7 @@ void	input_init(t_data **head, t_data *newnode);
 void	clear_in(t_data **data);
 char	**assign(int len, int x, char **command, t_minihell *mini);
 void	dup_arr(char **command, t_minihell *mini);
+
+int		command_check(t_minihell *mini);
 
 #endif

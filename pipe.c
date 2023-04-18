@@ -6,7 +6,7 @@
 /*   By: lwilliam <lwilliam@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/14 18:38:06 by lwilliam         ###   ########.fr       */
+/*   Updated: 2023/04/18 14:56:13 by lwilliam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	run_heredoc(t_minihell *mini, t_data *data)
 
 	data->term_in = dup(STDIN_FILENO);
 	data->term_out = dup(STDOUT_FILENO);
-	mini->input_arr = arr_dup(data->cmd);
 	if (heredoc_check(mini) == 0)
 	{
 		tmp = open(".tmp", O_RDONLY);
@@ -120,7 +119,11 @@ void	run(t_minihell *mini, t_data *data)
 
 	if (mini->ll_len == 1)
 	{
+		mini->input_arr = arr_dup(data->cmd);
 		run_heredoc(mini, data);
+		if (command_check(mini) != 0)
+			printf("Minishell: %s: command not found.\n", mini->input_arr[0]);
+		free_funct(mini->input_arr);
 		command(mini, data, 1);
 		term_reset(data);
 		return ;
