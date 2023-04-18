@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 18:22:17 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/04/18 15:45:26 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/18 15:56:19 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ void	run_dup(int *tmp_read, t_minihell *mini, t_data *data, t_data *first)
 		dup2(data->fd[1], STDOUT_FILENO);
 	else if (data->next != NULL)
 	{
-		dup2(*tmp_read, STDIN_FILENO);
+		if (data->heredoc_zero_if_valid)
+			dup2(*tmp_read, STDIN_FILENO);
 		dup2(data->fd[1], STDOUT_FILENO);
 	}
 	else
 	{
-		dup2(*tmp_read, STDIN_FILENO);
+		if (data->heredoc_zero_if_valid)
+			dup2(*tmp_read, STDIN_FILENO);
 	}
 	close_all_pipes(first);
 	command(mini, data, 0);
@@ -55,30 +57,12 @@ void	run_heredoc(t_minihell *mini, t_data *data)
 
 	data->term_in = dup(STDIN_FILENO);
 	data->term_out = dup(STDOUT_FILENO);
-	if (heredoc_check(mini) == 0)
+	data->heredoc_zero_if_valid = heredoc_check(mini);
+	if (data->heredoc_zero_if_valid == 0)
 	{
 		tmp = open(".tmp", O_RDONLY);
 		dup2(tmp, 0);
 		close(tmp);
-	}
-}
-
-int	command_check(t_minihell *mini)
-{
-	char *path;
-
-	if (builtin_check(mini))
-		return (0);
-	path = path_array(mini, get_env(mini->env_ll, "PATH"));
-	if (access(path, X_OK) == 0)
-	{
-		free(path);
-		return (0);
-	}
-	else
-	{
-		free(path);
-		return (1);
 	}
 }
 
@@ -89,11 +73,7 @@ void	run_pipes(t_minihell *mini, t_data *data, t_data *first)
 	tmp_read = -2;
 	while (data != NULL)
 	{
-		mini->input_arr = arr_dup(data->cmd);
-		run_heredoc(mini, data);
-		if (command_check(mini) != 0)
-			printf("Minishell: %s: command not found.\n", mini->input_arr[0]);
-		free_funct(mini->input_arr);
+		pre_fork(mini, data);
 		data->fork = fork();
 		if (data->fork == 0)
 		{
@@ -119,17 +99,8 @@ void	run(t_minihell *mini, t_data *data)
 	t_data	*head;
 	t_data	*first;
 
-	if (mini->ll_len == 1)
-	{
-		mini->input_arr = arr_dup(data->cmd);
-		run_heredoc(mini, data);
-		if (command_check(mini) != 0)
-			printf("Minishell: %s: command not found.\n", mini->input_arr[0]);
-		free_funct(mini->input_arr);
-		command(mini, data, 1);
-		term_reset(data);
+	if (!run_no_pipes(mini, data))
 		return ;
-	}
 	tmp_read = -2;
 	first = data;
 	run_pipes(mini, data, first);
