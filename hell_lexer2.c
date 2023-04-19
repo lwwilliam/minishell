@@ -6,7 +6,7 @@
 /*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:27:43 by lwilliam          #+#    #+#             */
-/*   Updated: 2023/03/29 15:40:12 by wting            ###   ########.fr       */
+/*   Updated: 2023/04/19 16:38:28 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	env_name_len(char *str, int bool)
 	i = -1;
 	while (str[++i] && str[i] != '$')
 		;
-	while (str[++i] && str[i] != ' ' && str[i] != '\'' && str[i] != '"')
+	while (str[++i] && str[i] != ' ' && str[i] != '\'' && str[i] != '"' && \
+		str[i] != '$')
 		++count;
 	if (!bool)
 		return (count);
